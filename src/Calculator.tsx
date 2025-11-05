@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, TrendingUp } from 'lucide-react';
 
@@ -11,6 +11,76 @@ interface YearData {
   image: string;
   highlights: string[];
 }
+
+const SOURCE_LINKS: Record<string, string> = {
+  'Global E-waste Monitor 2020': 'https://ewastemonitor.info/',
+  'Global E-waste Monitor 2024': 'https://ewastemonitor.info/global-e-waste-monitor-2024/',
+  'Global E-waste Monitor 2024 - Projections to 2030': 'https://ewastemonitor.info/global-e-waste-monitor-2024/',
+  'ITU - History of ICT Development 2000-2001': 'https://www.itu.int/en/history/Pages/default.aspx',
+  'ITU - Mobile Broadband Growth Stats 2009': 'https://www.itu.int/en/ITU-D/Statistics/Pages/default.aspx',
+  'ITU - Measuring the Information Society 2017': 'https://www.itu.int/en/ITU-D/Statistics/Pages/publications/mis/MIS2017.aspx',
+  'United Nations University - Historical E-waste Trends 2013': 'https://unu.edu/publications/articles/historical-e-waste-trends.html',
+  'UNU - E-waste Statistics Partnership 2012': 'https://unu.edu/projects/global-e-waste-statistics-partnership.html',
+  'OECD - Digital Economy Outlook 2004': 'https://www.oecd.org/digital/ieconomy/33988045.pdf',
+  'OECD - Digital Economy 2011': 'https://www.oecd.org/digital/digital-economy-outlook.htm',
+  'OECD - Semiconductor Shortage 2021': 'https://www.oecd.org/coronavirus/policy-responses/chip-shortage-highlights-need-for-resilient-and-sustainable-supply-chains-3b466f3d/',
+  'European Commission - Directive 2002/96/EC': 'https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX%3A32002L0096',
+  'European Commission - Right to Repair Directive 2024': 'https://single-market-economy.ec.europa.eu/sectors/retail/right-repair_en',
+  'UNEP - E-waste Volume 1 (2005)': 'https://wedocs.unep.org/handle/20.500.11822/8709',
+  'UNEP - E-waste Africa Project Baseline 2007': 'https://www.unep.org/resources/report/baseline-survey-e-waste-management-africa',
+  'BAN - Exporting Harm 2008': 'https://www.ban.org/library/exporting-harm-the-high-tech-trashing-of-asia',
+  'Apple Keynote 2007': 'https://www.apple.com/newsroom/archive/2007/',
+  'UN E-waste Data 2010': 'https://www.un.org/en/',
+  'Apple Keynote 2007 y UN E-waste Data 2010': 'https://www.apple.com/newsroom/archive/2007/',
+  'Right to Repair Europe - Origins 2013': 'https://repair.eu/about/',
+  'Ellen MacArthur Foundation - Circular Economy 2015': 'https://ellenmacarthurfoundation.org/circular-economy-concept',
+  'UNFCCC - Paris Agreement 2016': 'https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement',
+  'Greenpeace - Guide to Greener Electronics 2018': 'https://www.greenpeace.org/international/publication/16436/guide-to-greener-electronics-2017/',
+  'WEF - COVID-19 and E-waste 2020': 'https://www.weforum.org/agenda/2020/05/covid-19-pandemic-e-waste/',
+  'IEA - Data Centres and AI Energy 2023': 'https://www.iea.org/reports/data-centres-and-data-transmission-networks'
+};
+
+const formatHighlight = (highlight: string): ReactNode => {
+  if (!highlight.startsWith('Fuente: ')) {
+    return highlight;
+  }
+
+  const sourceText = highlight.replace('Fuente: ', '').trim();
+  const parts = sourceText.includes(' y ') ? sourceText.split(/\s+y\s+/i) : [sourceText];
+
+  const nodes: ReactNode[] = [];
+
+  parts.forEach((part, index) => {
+    const trimmed = part.trim();
+    const url = SOURCE_LINKS[trimmed] ?? SOURCE_LINKS[sourceText] ?? null;
+
+    if (index > 0) {
+      nodes.push(' y ');
+    }
+
+    if (url) {
+      nodes.push(
+        <a
+          key={`${trimmed}-${index}`}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-emerald-600 hover:text-emerald-500 underline decoration-dotted"
+        >
+          {trimmed}
+        </a>
+      );
+    } else {
+      nodes.push(trimmed);
+    }
+  });
+
+  return (
+    <>
+      Fuente: {nodes}
+    </>
+  );
+};
 
 const historicalData: YearData[] = [
   {
@@ -536,7 +606,7 @@ function Calculator() {
                   className="flex items-start gap-3 p-4 bg-gradient-to-br from-emerald-50 to-blue-50 rounded-lg border border-emerald-100 hover:border-emerald-300 transition-colors"
                 >
                   <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0" />
-                  <p className="text-graphite-700">{highlight}</p>
+                  <p className="text-graphite-700">{formatHighlight(highlight)}</p>
                 </div>
               ))}
             </div>
