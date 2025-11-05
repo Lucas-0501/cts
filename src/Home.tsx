@@ -936,6 +936,16 @@ function Home() {
                     IEEE Sustainability
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="chatgpt.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-emerald-400 transition-colors"
+                  >
+                    Chat GPT
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
