@@ -711,47 +711,39 @@ function Home() {
       </section>
 
       {/* ========== SPACE WASTE SECTION ========== */}
-      <section id="space-waste" className="py-24 px-6 bg-graphite-900">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6 text-white">
-              <h2 className="font-poppins text-5xl font-bold mb-4">Residuos Tecnológicos Espaciales</h2>
-              <p className="text-lg text-emerald-200/95 leading-relaxed">
-                Además del e-waste que toca el suelo, la órbita está cargada con restos de satélites, etapas de cohetes y fragmentos
-                que viajan a más de <span className="font-semibold text-emerald-300">28&nbsp;000&nbsp;km/h</span>. Cada pieza es una amenaza
-                para las misiones futuras y para la infraestructura espacial que sostiene servicios esenciales en la Tierra.
+      <section
+        id="space-waste"
+        className="space-waste-section relative overflow-hidden py-24 px-6 text-white"
+      >
+        <div className="space-waste-parallax" aria-hidden="true" />
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="space-y-6 text-white">
+            <h2 className="font-poppins text-5xl font-bold mb-4">Residuos Tecnológicos Espaciales</h2>
+            <p className="text-lg text-emerald-200/95 leading-relaxed">
+              Además del e-waste que toca el suelo, la órbita está cargada con restos de satélites, etapas de cohetes y fragmentos
+              que viajan a más de <span className="font-semibold text-emerald-300">28&nbsp;000&nbsp;km/h</span>. Cada pieza es una amenaza
+              para las misiones futuras y para la infraestructura espacial que sostiene servicios esenciales en la Tierra.
+            </p>
+            <div className="bg-gradient-to-tr from-emerald-500/25 via-blue-500/10 to-transparent border border-emerald-400/45 rounded-xl p-6 space-y-4">
+              <p className="font-poppins text-3xl font-semibold text-white">
+                <span className="text-emerald-300">27&nbsp;000+</span> objetos rastreados
               </p>
-              <div className="bg-gradient-to-tr from-emerald-500/25 via-blue-500/10 to-transparent border border-emerald-400/45 rounded-xl p-6 space-y-4">
-                <p className="font-poppins text-3xl font-semibold text-white">
-                  <span className="text-emerald-300">27&nbsp;000+</span> objetos rastreados
-                </p>
-                <p className="text-sm text-emerald-100 leading-relaxed">
-                  Según la ESA, solo el <span className="font-semibold">11&nbsp;%</span> de los objetos en órbita continúa operativo.
-                  El resto es desecho que puede detonar el <span className="font-semibold text-emerald-200">efecto Kessler</span>,
-                  una cadena de colisiones que bloquearía corredores orbitales completos.
-                </p>
-              </div>
-              <ul className="grid sm:grid-cols-2 gap-4 text-sm text-emerald-100">
-                <li className="bg-white/5 border border-emerald-400/30 rounded-lg p-4 leading-relaxed">
-                  <strong className="block text-emerald-300">Impacto terrestre</strong>
-                  Fragmentos reingresan a la atmósfera y pueden alcanzar zonas habitadas si no se desintegran por completo.
-                </li>
-                <li className="bg-white/5 border border-emerald-400/30 rounded-lg p-4 leading-relaxed">
-                  <strong className="block text-emerald-300">Diseño responsable</strong>
-                  Nuevos satélites incorporan sistemas de desorbitado y materiales que se queman con seguridad al finalizar su misión.
-                </li>
-              </ul>
+              <p className="text-sm text-emerald-100 leading-relaxed">
+                Según la ESA, solo el <span className="font-semibold">11&nbsp;%</span> de los objetos en órbita continúa operativo.
+                El resto es desecho que puede detonar el <span className="font-semibold text-emerald-200">efecto Kessler</span>,
+                una cadena de colisiones que bloquearía corredores orbitales completos.
+              </p>
             </div>
-
-            <div className="relative">
-              <div className="absolute inset-0 bg-emerald-500/20 blur-2xl rounded-3xl" aria-hidden="true" />
-              <img
-                src="https://images.pexels.com/photos/586030/pexels-photo-586030.jpeg?auto=compress&cs=tinysrgb&w=1920"
-                alt="Visualización de satélites orbitando el planeta Tierra"
-                loading="lazy"
-                className="relative rounded-3xl border border-emerald-500/40 shadow-emerald-500/40 shadow-2xl object-cover w-full h-full max-h-[420px]"
-              />
-            </div>
+            <ul className="grid sm:grid-cols-2 gap-4 text-sm text-emerald-100">
+              <li className="bg-white/5 border border-emerald-400/30 rounded-lg p-4 leading-relaxed">
+                <strong className="block text-emerald-300">Impacto terrestre</strong>
+                Fragmentos reingresan a la atmósfera y pueden alcanzar zonas habitadas si no se desintegran por completo.
+              </li>
+              <li className="bg-white/5 border border-emerald-400/30 rounded-lg p-4 leading-relaxed">
+                <strong className="block text-emerald-300">Diseño responsable</strong>
+                Nuevos satélites incorporan sistemas de desorbitado y materiales que se queman con seguridad al finalizar su misión.
+              </li>
+            </ul>
           </div>
         </div>
       </section>
@@ -956,9 +948,36 @@ function Home() {
             <div>
               <h4 className="font-bold text-emerald-400 mb-3">Fuentes</h4>
               <ul className="space-y-2 text-graphite-400 text-sm">
-                <li>ONU - Global E-waste Monitor</li>
-                <li>Greenpeace Electronics</li>
-                <li>IEEE Sustainability</li>
+                <li>
+                  <a
+                    href="https://ewastemonitor.info/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-emerald-400 transition-colors"
+                  >
+                    ONU - Global E-waste Monitor
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.greenpeace.org/argentina/el-peligro-de-los-residuos-electronicos"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-emerald-400 transition-colors"
+                  >
+                    Greenpeace Electronics
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://spectrum.ieee.org/tag/electronic-waste"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-emerald-400 transition-colors"
+                  >
+                    IEEE Sustainability
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
