@@ -314,8 +314,10 @@ function Home() {
   const [isChaosActive, setIsChaosActive] = useState(false);
   const [chaosStage, setChaosStage] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const demonTextControllerRef = useRef<DemonTextController | null>(null);
   const chaosAudioSrc = '/audio/War_meme.mp3';
+  const chaosVideoSrc = '/video/chaos-mode-placeholder.mp4';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -381,6 +383,22 @@ function Home() {
   }, [isChaosActive, chaosAudioSrc]);
 
   useEffect(() => {
+    const videoElement = videoRef.current;
+
+    if (!videoElement) {
+      return;
+    }
+
+    if (isChaosActive) {
+      videoElement.currentTime = 0;
+      videoElement.play().catch(() => {});
+    } else {
+      videoElement.pause();
+      videoElement.currentTime = 0;
+    }
+  }, [isChaosActive, chaosVideoSrc]);
+
+  useEffect(() => {
     if (isChaosActive) {
       demonTextControllerRef.current?.stop();
       demonTextControllerRef.current = startDemonTextEffect(chaosStage);
@@ -400,6 +418,12 @@ function Home() {
       demonTextControllerRef.current.setStage(chaosStage);
     }
   }, [chaosStage, isChaosActive]);
+
+  useEffect(() => {
+    return () => {
+      videoRef.current?.pause();
+    };
+  }, []);
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -424,7 +448,7 @@ function Home() {
     },
     {
       id: 3,
-      image: 'https://github.com/Lucas-0501/cts.git',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4i7Q4a9G5f84HIeiiWpWIlWmHslVuq2vm-B_IBmwqrk6Pq5xdMfnegV8f30RxAfmTCJ4kZVRedF_8gWu41NylIiVV0OB5YiYhPK4RkA&s=10',
       title: 'Reciclaje Responsable',
       description: 'Soluciones sostenibles para el futuro'
     }
@@ -503,6 +527,24 @@ function Home() {
               ))}
             </div>
           )}
+          <div className="chaos-video-container" data-demon-ignore="true">
+            <video
+              ref={videoRef}
+              key={chaosVideoSrc}
+              src={chaosVideoSrc}
+              className="chaos-video-player"
+              controls
+              loop
+              muted
+              playsInline
+              preload="metadata"
+            >
+              <track kind="captions" />
+            </video>
+            <div className="chaos-video-hint text-xs text-emerald-100/70">
+              Reemplaza <code>chaosVideoSrc</code> con tu archivo para mostrar el video en modo caos.
+            </div>
+          </div>
         </>
       )}
       {/* Progress Bar */}
@@ -665,6 +707,52 @@ function Home() {
           </div>
 
           <GlobalChart />
+        </div>
+      </section>
+
+      {/* ========== SPACE WASTE SECTION ========== */}
+      <section id="space-waste" className="py-24 px-6 bg-graphite-900">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-6 text-white">
+              <h2 className="font-poppins text-5xl font-bold mb-4">Residuos Tecnológicos Espaciales</h2>
+              <p className="text-lg text-emerald-200/95 leading-relaxed">
+                Además del e-waste que toca el suelo, la órbita está cargada con restos de satélites, etapas de cohetes y fragmentos
+                que viajan a más de <span className="font-semibold text-emerald-300">28&nbsp;000&nbsp;km/h</span>. Cada pieza es una amenaza
+                para las misiones futuras y para la infraestructura espacial que sostiene servicios esenciales en la Tierra.
+              </p>
+              <div className="bg-gradient-to-tr from-emerald-500/25 via-blue-500/10 to-transparent border border-emerald-400/45 rounded-xl p-6 space-y-4">
+                <p className="font-poppins text-3xl font-semibold text-white">
+                  <span className="text-emerald-300">27&nbsp;000+</span> objetos rastreados
+                </p>
+                <p className="text-sm text-emerald-100 leading-relaxed">
+                  Según la ESA, solo el <span className="font-semibold">11&nbsp;%</span> de los objetos en órbita continúa operativo.
+                  El resto es desecho que puede detonar el <span className="font-semibold text-emerald-200">efecto Kessler</span>,
+                  una cadena de colisiones que bloquearía corredores orbitales completos.
+                </p>
+              </div>
+              <ul className="grid sm:grid-cols-2 gap-4 text-sm text-emerald-100">
+                <li className="bg-white/5 border border-emerald-400/30 rounded-lg p-4 leading-relaxed">
+                  <strong className="block text-emerald-300">Impacto terrestre</strong>
+                  Fragmentos reingresan a la atmósfera y pueden alcanzar zonas habitadas si no se desintegran por completo.
+                </li>
+                <li className="bg-white/5 border border-emerald-400/30 rounded-lg p-4 leading-relaxed">
+                  <strong className="block text-emerald-300">Diseño responsable</strong>
+                  Nuevos satélites incorporan sistemas de desorbitado y materiales que se queman con seguridad al finalizar su misión.
+                </li>
+              </ul>
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 bg-emerald-500/20 blur-2xl rounded-3xl" aria-hidden="true" />
+              <img
+                src="https://images.pexels.com/photos/586030/pexels-photo-586030.jpeg?auto=compress&cs=tinysrgb&w=1920"
+                alt="Visualización de satélites orbitando el planeta Tierra"
+                loading="lazy"
+                className="relative rounded-3xl border border-emerald-500/40 shadow-emerald-500/40 shadow-2xl object-cover w-full h-full max-h-[420px]"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
