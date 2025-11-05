@@ -314,10 +314,8 @@ function Home() {
   const [isChaosActive, setIsChaosActive] = useState(false);
   const [chaosStage, setChaosStage] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
   const demonTextControllerRef = useRef<DemonTextController | null>(null);
   const chaosAudioSrc = '/audio/War_meme.mp3';
-  const chaosVideoSrc = '/video/chaos-mode-placeholder.mp4';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -383,22 +381,6 @@ function Home() {
   }, [isChaosActive, chaosAudioSrc]);
 
   useEffect(() => {
-    const videoElement = videoRef.current;
-
-    if (!videoElement) {
-      return;
-    }
-
-    if (isChaosActive) {
-      videoElement.currentTime = 0;
-      videoElement.play().catch(() => {});
-    } else {
-      videoElement.pause();
-      videoElement.currentTime = 0;
-    }
-  }, [isChaosActive, chaosVideoSrc]);
-
-  useEffect(() => {
     if (isChaosActive) {
       demonTextControllerRef.current?.stop();
       demonTextControllerRef.current = startDemonTextEffect(chaosStage);
@@ -418,12 +400,6 @@ function Home() {
       demonTextControllerRef.current.setStage(chaosStage);
     }
   }, [chaosStage, isChaosActive]);
-
-  useEffect(() => {
-    return () => {
-      videoRef.current?.pause();
-    };
-  }, []);
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -527,24 +503,6 @@ function Home() {
               ))}
             </div>
           )}
-          <div className="chaos-video-container" data-demon-ignore="true">
-            <video
-              ref={videoRef}
-              key={chaosVideoSrc}
-              src={chaosVideoSrc}
-              className="chaos-video-player"
-              controls
-              loop
-              muted
-              playsInline
-              preload="metadata"
-            >
-              <track kind="captions" />
-            </video>
-            <div className="chaos-video-hint text-xs text-emerald-100/70">
-              Reemplaza <code>chaosVideoSrc</code> con tu archivo para mostrar el video en modo caos.
-            </div>
-          </div>
         </>
       )}
       {/* Progress Bar */}
