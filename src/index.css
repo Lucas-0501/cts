@@ -181,6 +181,105 @@
     filter: blur(1px);
   }
 
+  .chaos-flare {
+    position: fixed;
+    inset: -18vh -24vw -34vh -24vw;
+    pointer-events: none;
+    z-index: 63;
+    mix-blend-mode: screen;
+    background:
+      radial-gradient(circle at 50% 68%, rgba(255, 178, 56, 0.72), rgba(255, 94, 0, 0) 60%),
+      radial-gradient(circle at 52% 92%, rgba(255, 120, 0, 0.58), rgba(160, 30, 0, 0) 74%),
+      radial-gradient(circle at 48% 42%, rgba(255, 206, 102, 0.42), rgba(255, 118, 0, 0) 78%);
+    transform-origin: center bottom;
+    --flare-scale-min: 0.94;
+    --flare-scale-max: 1.12;
+    --flare-translate-start: 8%;
+    --flare-translate-end: -2%;
+    --flare-opacity-min: 0.44;
+    --flare-opacity-max: 0.7;
+    --flare-blur: 22px;
+    filter: blur(var(--flare-blur));
+    animation: flarePulse 2.6s ease-in-out infinite alternate;
+  }
+
+  .chaos-flare::before {
+    content: '';
+    position: absolute;
+    inset: 14% 26% 26% 26%;
+    background: radial-gradient(circle at 50% 100%, rgba(255, 226, 138, 0.78), rgba(255, 118, 0, 0) 72%);
+    filter: blur(18px);
+    opacity: 0.65;
+    animation: flareRise 2.2s ease-in-out infinite;
+  }
+
+  .chaos-flare::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      conic-gradient(from 170deg, rgba(255, 170, 0, 0.34) 0deg, rgba(255, 106, 0, 0.08) 90deg, transparent 170deg),
+      conic-gradient(from 350deg, rgba(255, 120, 0, 0.26) 0deg, transparent 130deg);
+    filter: blur(24px);
+    opacity: 0.6;
+    animation: flareFlicker 1.5s ease-in-out infinite;
+  }
+
+  .chaos-flare--stage-1 {
+    --flare-scale-min: 0.9;
+    --flare-scale-max: 1.04;
+    --flare-translate-start: 10%;
+    --flare-translate-end: 2%;
+    --flare-opacity-min: 0.38;
+    --flare-opacity-max: 0.58;
+    --flare-blur: 26px;
+  }
+
+  .chaos-flare--stage-2 {
+    --flare-scale-min: 0.96;
+    --flare-scale-max: 1.16;
+    --flare-translate-start: 6%;
+    --flare-translate-end: -3%;
+    --flare-opacity-min: 0.5;
+    --flare-opacity-max: 0.76;
+    --flare-blur: 22px;
+  }
+
+  .chaos-flare--stage-3 {
+    --flare-scale-min: 1.04;
+    --flare-scale-max: 1.28;
+    --flare-translate-start: 4%;
+    --flare-translate-end: -8%;
+    --flare-opacity-min: 0.6;
+    --flare-opacity-max: 0.86;
+    --flare-blur: 18px;
+  }
+
+  .chaos-flare--stage-3::before {
+    animation-duration: 1.6s;
+  }
+
+  .chaos-flare--stage-3::after {
+    animation-duration: 1.1s;
+    opacity: 0.75;
+  }
+
+  .demon-text-active {
+    position: relative;
+    color: #ffe9e3 !important;
+    text-shadow: 0 0 6px rgba(255, 64, 0, 0.7), 0 0 18px rgba(120, 0, 0, 0.55);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  .demon-text-active::selection {
+    background: rgba(255, 90, 0, 0.35);
+    color: #fffdfa;
+  }
+
+  .chaos-mode .demon-text-active {
+    color: #fff4ed !important;
+  }
+
   .chaos-cracks {
     position: fixed;
     inset: 0;
@@ -395,6 +494,47 @@
     100% {
       background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%;
       box-shadow: inset 0 0 140px rgba(255, 20, 0, 0.34);
+    }
+  }
+
+  @keyframes flarePulse {
+    0% {
+      transform: scale(var(--flare-scale-min)) translateY(var(--flare-translate-start));
+      opacity: var(--flare-opacity-min);
+    }
+    100% {
+      transform: scale(var(--flare-scale-max)) translateY(var(--flare-translate-end));
+      opacity: var(--flare-opacity-max);
+    }
+  }
+
+  @keyframes flareRise {
+    0% {
+      transform: translateY(12%) scaleY(0.85);
+      opacity: 0.4;
+    }
+    45% {
+      transform: translateY(-6%) scaleY(1.05);
+      opacity: 0.75;
+    }
+    100% {
+      transform: translateY(-18%) scaleY(1.15);
+      opacity: 0;
+    }
+  }
+
+  @keyframes flareFlicker {
+    0% {
+      opacity: 0.4;
+      transform: rotate(-2deg) scale(0.96);
+    }
+    40% {
+      opacity: 0.7;
+      transform: rotate(2deg) scale(1.04);
+    }
+    100% {
+      opacity: 0.5;
+      transform: rotate(-1deg) scale(0.98);
     }
   }
 

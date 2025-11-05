@@ -6,6 +6,306 @@ import Carousel from './components/Carousel';
 import GlobalChart from './components/GlobalChart';
 import RecycleChain from './components/RecycleChain';
 
+interface DemonTextController {
+  stop: () => void;
+  setStage: (stage: number) => void;
+}
+
+const DEMON_SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'OPTION', 'CODE', 'PRE']);
+const GLITCH_BASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+const GLITCH_SYMBOLS = ['Δ', 'Ξ', 'Ж', 'Ѱ', 'ψ', 'Ʃ', 'Ϟ', '☠', '✶', '♆', '⛧', '⚡', '♱', '☾', '☽', '⛓'];
+const ZALGO_COMBINERS = [
+  '\u0300',
+  '\u0301',
+  '\u0302',
+  '\u0303',
+  '\u0304',
+  '\u0305',
+  '\u0306',
+  '\u0307',
+  '\u0308',
+  '\u0309',
+  '\u030A',
+  '\u030B',
+  '\u030C',
+  '\u030D',
+  '\u030E',
+  '\u030F',
+  '\u0310',
+  '\u0311',
+  '\u0312',
+  '\u0313',
+  '\u0314',
+  '\u0315',
+  '\u031B',
+  '\u031F',
+  '\u0320',
+  '\u0323',
+  '\u0324',
+  '\u0325',
+  '\u0326',
+  '\u0327',
+  '\u0328',
+  '\u032C',
+  '\u032D',
+  '\u032E',
+  '\u032F',
+  '\u0330',
+  '\u0331',
+  '\u0334',
+  '\u0335',
+  '\u0336',
+  '\u0337',
+  '\u0338',
+  '\u0339',
+  '\u033A',
+  '\u033B',
+  '\u033C',
+  '\u0346',
+  '\u0347',
+  '\u0348',
+  '\u0349',
+  '\u034F',
+  '\u0350',
+  '\u0351',
+  '\u0352',
+  '\u0357',
+  '\u035B',
+  '\u035C',
+  '\u035D',
+  '\u035E',
+  '\u0360',
+  '\u0361',
+  '\u0362',
+  '\u0489'
+];
+const ZALGO_PREFIXES = ['\u0315', '\u031B', '\u033D', '\u034F', '\u0352', '\u0357', '\u0361', '\u0489'];
+const DEMON_TARGET_SELECTORS = ['h1', 'h2', '[data-demon-target="true"]'] as const;
+const DEMON_TARGET_SELECTOR = DEMON_TARGET_SELECTORS.join(',');
+
+const randomChoice = <T,>(list: readonly T[]): T => list[Math.floor(Math.random() * list.length)];
+const getNow = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
+
+const createGlitchGlyph = (intensity: number, originalChar: string): string => {
+  const normalized = Math.min(1.8, Math.max(0.35, intensity));
+  const baseRoll = Math.random();
+  let base = originalChar;
+
+  if (baseRoll < 0.3) {
+    base = originalChar.toUpperCase();
+  } else if (baseRoll < 0.55) {
+    base = GLITCH_BASE_CHARS[Math.floor(Math.random() * GLITCH_BASE_CHARS.length)];
+  } else if (baseRoll < 0.85) {
+    base = randomChoice(GLITCH_SYMBOLS);
+  }
+
+  const accentTotal = Math.min(5, 1 + Math.floor(normalized * 2) + Math.floor(Math.random() * 3));
+  let result = base;
+  for (let i = 0; i < accentTotal; i += 1) {
+    result += randomChoice(ZALGO_COMBINERS);
+  }
+
+  if (normalized > 1 && Math.random() < 0.4) {
+    result = `${randomChoice(ZALGO_PREFIXES)}${result}`;
+  }
+
+  return result;
+};
+
+const startDemonTextEffect = (initialStage: number): DemonTextController => {
+  if (typeof document === 'undefined') {
+    return {
+      stop: () => {},
+      setStage: () => {}
+    };
+  }
+
+  const body = document.body;
+  if (!body) {
+    return {
+      stop: () => {},
+      setStage: () => {}
+    };
+  }
+
+  const targetElements = Array.from(document.querySelectorAll(DEMON_TARGET_SELECTOR)) as HTMLElement[];
+
+  if (targetElements.length === 0) {
+    return {
+      stop: () => {},
+      setStage: () => {}
+    };
+  }
+
+  const records: Array<{
+    node: Text;
+    original: string;
+    host: HTMLElement;
+    start: number;
+    speed: number;
+  }> = [];
+  const parentInfo = new Map<HTMLElement, { original: string; prevAriaLabel: string | null }>();
+  const seenNodes = new Set<Text>();
+
+  targetElements.forEach((target) => {
+    if (target.closest('[data-demon-ignore="true"]')) {
+      return;
+    }
+
+    const walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT);
+    let node = walker.nextNode();
+
+    while (node) {
+      const textNode = node as Text;
+
+      if (seenNodes.has(textNode)) {
+        node = walker.nextNode();
+        continue;
+      }
+
+      const content = textNode.textContent ?? '';
+      if (!content.trim()) {
+        node = walker.nextNode();
+        continue;
+      }
+
+      const parent = textNode.parentElement;
+      if (!parent) {
+        node = walker.nextNode();
+        continue;
+      }
+
+      if (DEMON_SKIP_TAGS.has(parent.tagName) || parent.closest('[data-demon-ignore="true"]') || parent.closest('svg')) {
+        node = walker.nextNode();
+        continue;
+      }
+
+      const hostElement = (parent.closest(DEMON_TARGET_SELECTOR) as HTMLElement) ?? target;
+
+      records.push({
+        node: textNode,
+        original: content,
+        host: hostElement,
+        start: getNow() + Math.random() * 900,
+        speed: 0.85 + Math.random() * 0.6
+      });
+
+      if (!parentInfo.has(hostElement)) {
+        parentInfo.set(hostElement, {
+          original: hostElement.textContent ?? '',
+          prevAriaLabel: hostElement.hasAttribute('aria-label') ? hostElement.getAttribute('aria-label') : null
+        });
+      }
+
+      seenNodes.add(textNode);
+      node = walker.nextNode();
+    }
+  });
+
+  if (records.length === 0) {
+    return {
+      stop: () => {},
+      setStage: () => {}
+    };
+  }
+
+  parentInfo.forEach((info, host) => {
+    host.classList.add('demon-text-active');
+    host.setAttribute('data-demon-text', 'active');
+    const trimmed = info.original.trim();
+    if (!host.hasAttribute('aria-label') && trimmed.length > 0) {
+      host.setAttribute('aria-label', trimmed);
+    }
+  });
+
+  let currentStage = initialStage;
+  let rafId = 0;
+  let lastFrameTime = 0;
+  let chunkIndex = 0;
+  const chunkSize = Math.max(6, Math.ceil(records.length / 8));
+  const cycleDuration = 3000;
+
+  const tick = (time: number) => {
+    if (time - lastFrameTime >= 90) {
+      const endIndex = Math.min(records.length, chunkIndex + chunkSize);
+      for (let idx = chunkIndex; idx < endIndex; idx += 1) {
+        const record = records[idx];
+
+        if (!record.node.isConnected) {
+          continue;
+        }
+
+        const loopTime = ((time - record.start) * record.speed) / cycleDuration;
+        const loopProgress = loopTime - Math.floor(loopTime);
+        const revealProgress = Math.pow(loopProgress, 0.62);
+        const revealCount = Math.floor(record.original.length * revealProgress);
+        const intensityBase = currentStage >= 3 ? 1.2 : currentStage === 2 ? 0.9 : 0.6;
+        const glitchIntensity = intensityBase + loopProgress * 0.9;
+        let buffer = '';
+
+        for (let charIndex = 0; charIndex < record.original.length; charIndex += 1) {
+          const char = record.original[charIndex];
+
+          if (/\s/.test(char)) {
+            buffer += char;
+            continue;
+          }
+
+          if (charIndex < revealCount && loopProgress > 0.18) {
+            const flickerChance = loopProgress > 0.6 ? 0.2 + intensityBase * 0.15 : 0.05;
+            buffer += Math.random() < flickerChance ? createGlitchGlyph(glitchIntensity, char) : char;
+          } else {
+            buffer += createGlitchGlyph(glitchIntensity, char);
+          }
+        }
+
+        record.node.textContent = buffer;
+      }
+
+      chunkIndex = endIndex >= records.length ? 0 : endIndex;
+      lastFrameTime = time;
+    }
+
+    rafId = window.requestAnimationFrame(tick);
+  };
+
+  if (records.length > 0) {
+    rafId = window.requestAnimationFrame(tick);
+  }
+
+  const stop = () => {
+    if (rafId) {
+      window.cancelAnimationFrame(rafId);
+    }
+
+    records.forEach((record) => {
+      if (record.node.isConnected) {
+        record.node.textContent = record.original;
+      }
+    });
+
+    parentInfo.forEach((info, host) => {
+      host.classList.remove('demon-text-active');
+      host.removeAttribute('data-demon-text');
+
+      if (info.prevAriaLabel === null) {
+        host.removeAttribute('aria-label');
+      } else {
+        host.setAttribute('aria-label', info.prevAriaLabel);
+      }
+    });
+  };
+
+  const setStage = (stage: number) => {
+    currentStage = stage;
+  };
+
+  return {
+    stop,
+    setStage
+  };
+};
+
 function Home() {
   const navigate = useNavigate();
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -14,6 +314,7 @@ function Home() {
   const [isChaosActive, setIsChaosActive] = useState(false);
   const [chaosStage, setChaosStage] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const demonTextControllerRef = useRef<DemonTextController | null>(null);
   const chaosAudioSrc = '/audio/War_meme.mp3';
 
   useEffect(() => {
@@ -79,6 +380,27 @@ function Home() {
     }
   }, [isChaosActive, chaosAudioSrc]);
 
+  useEffect(() => {
+    if (isChaosActive) {
+      demonTextControllerRef.current?.stop();
+      demonTextControllerRef.current = startDemonTextEffect(chaosStage);
+    } else {
+      demonTextControllerRef.current?.stop();
+      demonTextControllerRef.current = null;
+    }
+
+    return () => {
+      demonTextControllerRef.current?.stop();
+      demonTextControllerRef.current = null;
+    };
+  }, [isChaosActive]);
+
+  useEffect(() => {
+    if (isChaosActive && demonTextControllerRef.current) {
+      demonTextControllerRef.current.setStage(chaosStage);
+    }
+  }, [chaosStage, isChaosActive]);
+
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -102,7 +424,7 @@ function Home() {
     },
     {
       id: 3,
-      image: 'https://images.pexels.com/photos/2582928/pexels-photo-2582928.jpeg?auto=compress&cs=tinysrgb&w=1920',
+      image: 'https://github.com/Lucas-0501/cts.git',
       title: 'Reciclaje Responsable',
       description: 'Soluciones sostenibles para el futuro'
     }
@@ -164,6 +486,7 @@ function Home() {
       {isChaosActive && (
         <>
           <div className={`chaos-overlay ${chaosStage >= 2 ? 'chaos-overlay--intense' : ''}`} />
+          {chaosStage >= 1 && <div className={`chaos-flare chaos-flare--stage-${chaosStage}`} />}
           {chaosStage >= 2 && <div className="chaos-cracks" />}
           {chaosStage >= 3 && (
             <div className="chaos-embers">
@@ -558,11 +881,13 @@ function Home() {
             <button
               type="button"
               onClick={toggleChaos}
+              id="no-tocar"
+              aria-pressed={isChaosActive}
               className={`rounded-full border border-red-500 bg-red-600 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-white shadow-lg transition-transform duration-300 ${
                 isChaosActive ? 'scale-110 animate-pulse' : 'hover:scale-110'
               }`}
             >
-              No tocar
+              no tocar
             </button>
             <div className="text-[11px] text-graphite-400 italic">
               No toques, al menos que quieras descubrir lo que le pasaria al mundo si no cambiamos nada.
