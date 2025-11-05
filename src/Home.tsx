@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, ChevronDown, Smartphone, Laptop, Battery, Zap, Heart, Users, RefreshCw, Shield, BookOpen, ExternalLink, Play, TrendingUp } from 'lucide-react';
 import CountUp from './components/CountUp';
@@ -10,6 +10,11 @@ function Home() {
   const navigate = useNavigate();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
+  const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
+  const [isChaosActive, setIsChaosActive] = useState(false);
+  const [chaosStage, setChaosStage] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const chaosAudioSrc = '/audio/War_meme.mp3';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,8 +26,65 @@ function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!isChaosActive) {
+      setChaosStage(0);
+      return;
+    }
+
+    setChaosStage(1);
+    const stageTimers = [
+      window.setTimeout(() => setChaosStage(2), 1800),
+      window.setTimeout(() => setChaosStage(3), 3600)
+    ];
+
+    return () => {
+      stageTimers.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, [isChaosActive]);
+
+  useEffect(() => {
+    if (!audioRef.current) {
+      const audioElement = new Audio(chaosAudioSrc);
+      audioElement.loop = true;
+      audioElement.volume = 0.85;
+      audioRef.current = audioElement;
+    }
+
+    return () => {
+      audioRef.current?.pause();
+    };
+  }, [chaosAudioSrc]);
+
+  useEffect(() => {
+    if (!audioRef.current) {
+      const audioElement = new Audio(chaosAudioSrc);
+      audioElement.loop = true;
+      audioElement.volume = 0.85;
+      audioRef.current = audioElement;
+    }
+
+    const audioElement = audioRef.current;
+
+    if (!audioElement) {
+      return;
+    }
+
+    if (isChaosActive) {
+      audioElement.currentTime = 0;
+      audioElement.play().catch(() => {});
+    } else {
+      audioElement.pause();
+      audioElement.currentTime = 0;
+    }
+  }, [isChaosActive, chaosAudioSrc]);
+
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const toggleChaos = () => {
+    setIsChaosActive((prev) => !prev);
   };
 
   const wasteCarouselItems = [
@@ -77,8 +139,49 @@ function Home() {
     { name: 'Dell Circular', logo: '🔄', desc: 'Diseño circular desde cero' }
   ];
 
+  const videoHighlights = [
+    {
+      title: 'Impacto Global',
+      desc: 'Entiende la escala mundial',
+      videoUrl: 'https://www.youtube.com/embed/mWSwRneTNYo?si=e7hhXPVWYk0DIgPY'
+    },
+    {
+      title: 'Soluciones Prácticas',
+      desc: 'Acciones que puedes tomar hoy',
+      videoUrl: 'https://www.youtube.com/embed/zWhshVOf0Ng?si=d-opgrq20Qg14jnJ'
+    },
+    {
+      title: 'Futuro Sostenible',
+      desc: 'Tecnología responsable',
+      videoUrl: 'https://www.youtube.com/embed/eiXTdXoWDlc?si=Pol5Nqen4zGmukYh'
+    }
+  ];
+
+  const chaosClass = isChaosActive ? `chaos-mode chaos-stage-${chaosStage}` : '';
+
   return (
-    <div className="min-h-screen bg-graphite-50 font-inter">
+    <div className={`min-h-screen bg-graphite-50 font-inter ${chaosClass}`}>
+      {isChaosActive && (
+        <>
+          <div className={`chaos-overlay ${chaosStage >= 2 ? 'chaos-overlay--intense' : ''}`} />
+          {chaosStage >= 2 && <div className="chaos-cracks" />}
+          {chaosStage >= 3 && (
+            <div className="chaos-embers">
+              {Array.from({ length: 12 }).map((_, index) => (
+                <span
+                  key={`ember-${index}`}
+                  className="chaos-ember"
+                  style={{
+                    animationDelay: `${index * 0.12}s`,
+                    animationDuration: `${3.2 + (index % 4) * 0.4}s`,
+                    left: `${(index * 9) % 100}%`
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </>
+      )}
       {/* Progress Bar */}
       <div
         className="fixed top-0 left-0 h-1 bg-gradient-to-r from-emerald-500 to-blue-500 z-50 transition-all duration-300"
@@ -267,8 +370,8 @@ function Home() {
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 className="absolute top-0 left-0 w-full h-full"
-                src="https://www.youtube.com/embed/mWSwRneTNYo?si=e7hhXPVWYk0DIgPY"
-                title="E-Waste Impact Video"
+                src={videoHighlights[selectedVideoIndex].videoUrl}
+                title={videoHighlights[selectedVideoIndex].title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -277,16 +380,21 @@ function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { title: 'Impacto Global', desc: 'Entiende la escala mundial' },
-              { title: 'Soluciones Prácticas', desc: 'Acciones que puedes tomar hoy' },
-              { title: 'Futuro Sostenible', desc: 'Tecnología responsable' }
-            ].map((item, i) => (
-              <div key={i} className="bg-gradient-to-br from-emerald-50 to-blue-50 p-6 rounded-lg border border-emerald-200">
+            {videoHighlights.map((item, index) => (
+              <button
+                key={item.title}
+                type="button"
+                onClick={() => setSelectedVideoIndex(index)}
+                className={`text-left bg-gradient-to-br from-emerald-50 to-blue-50 p-6 rounded-lg border transition-all ${
+                  selectedVideoIndex === index
+                    ? 'border-emerald-400 shadow-emerald-200/60 shadow-lg ring-2 ring-emerald-300/60'
+                    : 'border-emerald-200 hover:border-emerald-400 hover:shadow-lg'
+                }`}
+              >
                 <Play className="w-5 h-5 text-emerald-600 mb-3" />
                 <h3 className="font-bold text-graphite-900 mb-2">{item.title}</h3>
                 <p className="text-sm text-graphite-700">{item.desc}</p>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -445,6 +553,20 @@ function Home() {
           </div>
           <div className="text-center text-graphite-500 text-sm">
             <p>Cada acción cuenta para un futuro más limpio • 2025 • Proyecto CTS</p>
+          </div>
+          <div className="mt-8 flex flex-col items-center gap-2">
+            <button
+              type="button"
+              onClick={toggleChaos}
+              className={`rounded-full border border-red-500 bg-red-600 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-white shadow-lg transition-transform duration-300 ${
+                isChaosActive ? 'scale-110 animate-pulse' : 'hover:scale-110'
+              }`}
+            >
+              No tocar
+            </button>
+            <div className="text-[11px] text-graphite-400 italic">
+              La música secreta se activa automáticamente: War_meme.mp3
+            </div>
           </div>
         </div>
       </footer>

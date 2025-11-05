@@ -147,6 +147,294 @@
       transform: translateY(-20px);
     }
   }
+
+  .chaos-mode {
+    position: relative;
+    animation: chaosShake 0.18s ease-in-out infinite alternate;
+    filter: contrast(1.35) saturate(1.7) hue-rotate(-12deg);
+    background:
+      radial-gradient(circle at 10% 15%, rgba(220, 30, 30, 0.32), rgba(20, 7, 7, 0) 55%),
+      radial-gradient(circle at 80% 12%, rgba(255, 112, 28, 0.28), rgba(15, 5, 5, 0) 62%),
+      linear-gradient(135deg, #1a0606, #360909 65%, #200202);
+    color: #fcefe8;
+    transition: background 0.6s ease, filter 0.6s ease, color 0.6s ease;
+  }
+
+  .chaos-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 20% 25%, rgba(255, 102, 0, 0.12), transparent 60%),
+      radial-gradient(circle at 80% 35%, rgba(255, 180, 75, 0.1), transparent 65%),
+      linear-gradient(to bottom, rgba(10, 10, 10, 0), rgba(0, 0, 0, 0.65));
+    mix-blend-mode: screen;
+    z-index: 60;
+    animation: burnGlow 1.2s ease-in-out infinite;
+  }
+
+  .chaos-overlay--intense {
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255, 68, 0, 0.22), transparent 52%),
+      radial-gradient(circle at 85% 30%, rgba(255, 160, 0, 0.18), transparent 58%),
+      linear-gradient(to bottom, rgba(33, 0, 0, 0.1), rgba(0, 0, 0, 0.75));
+    filter: blur(1px);
+  }
+
+  .chaos-cracks {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.08) 0px, rgba(255, 255, 255, 0.08) 1px, transparent 1px, transparent 18px),
+      repeating-linear-gradient(65deg, rgba(0, 0, 0, 0.18) 0px, rgba(0, 0, 0, 0.18) 1px, transparent 1px, transparent 20px);
+    mix-blend-mode: overlay;
+    opacity: 0;
+    animation: crackReveal 0.6s ease-out forwards;
+    z-index: 65;
+  }
+
+  .chaos-embers {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 70;
+  }
+
+  .chaos-ember {
+    position: absolute;
+    bottom: -12vh;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle, rgba(255, 170, 0, 0.9) 0%, rgba(255, 69, 0, 0.45) 55%, rgba(255, 69, 0, 0) 100%);
+    border-radius: 9999px;
+    opacity: 0;
+    animation: emberDrift 4s linear infinite;
+  }
+
+  .chaos-mode section,
+  .chaos-mode footer,
+  .chaos-mode header,
+  .chaos-mode main {
+    transition: transform 0.45s ease, filter 0.45s ease, box-shadow 0.45s ease;
+  }
+
+  .chaos-mode .bg-white {
+    background-color: rgba(46, 9, 9, 0.88) !important;
+  }
+
+  .chaos-mode .bg-gray-50,
+  .chaos-mode .bg-graphite-50 {
+    background-color: rgba(66, 6, 6, 0.78) !important;
+  }
+
+  .chaos-mode .bg-graphite-900 {
+    background-color: rgba(12, 0, 0, 0.95) !important;
+  }
+
+  .chaos-mode [class*="text-graphite"] {
+    color: #ffe7d9 !important;
+  }
+
+  .chaos-mode [class*="text-emerald"] {
+    color: #ffd7c2 !important;
+  }
+
+  .chaos-stage-0 {
+    filter: contrast(1.2) saturate(1.5) hue-rotate(-8deg);
+  }
+
+  .chaos-stage-1 {
+    filter: contrast(1.45) saturate(1.95) hue-rotate(-18deg);
+    box-shadow: inset 0 0 120px rgba(255, 86, 0, 0.28);
+  }
+
+  .chaos-stage-2 {
+    filter: contrast(1.6) saturate(2.35) hue-rotate(-32deg);
+    background:
+      radial-gradient(circle at 18% 25%, rgba(255, 124, 0, 0.38), transparent 58%),
+      radial-gradient(circle at 78% 15%, rgba(255, 52, 0, 0.35), transparent 60%),
+      linear-gradient(125deg, #1a0303, #420707 55%, #170000);
+    animation: chaosShake 0.18s ease-in-out infinite alternate, chaosLava 1.9s ease-in-out infinite;
+  }
+
+  .chaos-stage-3 {
+    filter: contrast(1.85) saturate(2.8) hue-rotate(-48deg);
+    background:
+      radial-gradient(circle at 12% 18%, rgba(255, 140, 0, 0.48), transparent 55%),
+      radial-gradient(circle at 88% 28%, rgba(255, 34, 0, 0.4), transparent 64%),
+      radial-gradient(circle at 40% 70%, rgba(210, 0, 0, 0.32), transparent 70%),
+      linear-gradient(140deg, #0d0000, #3a0505 45%, #120000 90%);
+    animation: chaosShake 0.16s ease-in-out infinite alternate, chaosInferno 1.2s ease-in-out infinite;
+    box-shadow: inset 0 0 140px rgba(255, 0, 0, 0.32);
+  }
+
+  .chaos-stage-1 section:nth-of-type(odd) {
+    transform: rotate(-0.8deg) translate(-6px, -4px);
+    box-shadow: 0 16px 32px rgba(255, 80, 0, 0.18);
+  }
+
+  .chaos-stage-1 section:nth-of-type(even),
+  .chaos-stage-1 footer {
+    transform: rotate(1.1deg) translate(6px, 5px);
+  }
+
+  .chaos-stage-2 section:nth-of-type(odd) {
+    transform: rotate(-3.2deg) translate(-18px, -10px) scale(1.04);
+    box-shadow: -16px 26px 52px rgba(255, 64, 0, 0.22);
+  }
+
+  .chaos-stage-2 section:nth-of-type(even) {
+    transform: rotate(2.4deg) translate(14px, 8px) scale(1.03);
+    box-shadow: 12px 22px 46px rgba(255, 82, 0, 0.2);
+  }
+
+  .chaos-stage-2 footer {
+    transform: rotate(-2.4deg) translate(-12px, 8px) scale(1.02);
+    box-shadow: -12px 18px 42px rgba(255, 52, 0, 0.22);
+  }
+
+  .chaos-stage-3 section:nth-of-type(odd) {
+    transform: rotate(-6deg) translate(-32px, -14px) scale(1.06);
+    box-shadow: -24px 32px 72px rgba(255, 20, 0, 0.32);
+    filter: drop-shadow(-6px 10px 18px rgba(255, 50, 0, 0.3));
+  }
+
+  .chaos-stage-3 section:nth-of-type(even) {
+    transform: rotate(4.2deg) translate(20px, 14px) scale(1.05);
+    box-shadow: 22px 30px 68px rgba(255, 34, 0, 0.3);
+    filter: drop-shadow(6px 10px 18px rgba(255, 40, 0, 0.28));
+  }
+
+  .chaos-stage-3 footer {
+    transform: rotate(-4.6deg) translate(-20px, 16px) scale(1.04);
+    box-shadow: -24px 26px 68px rgba(255, 18, 0, 0.34);
+  }
+
+  .chaos-mode button,
+  .chaos-mode a,
+  .chaos-mode .rounded-lg,
+  .chaos-mode .rounded-xl {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
+  }
+
+  .chaos-stage-2 button,
+  .chaos-stage-2 a,
+  .chaos-stage-2 .rounded-lg,
+  .chaos-stage-2 .rounded-xl {
+    transform: rotate(-3deg) translateY(-6px);
+    box-shadow: 0 18px 42px rgba(255, 70, 0, 0.32);
+    background: linear-gradient(135deg, rgba(90, 9, 9, 0.85), rgba(140, 14, 14, 0.92));
+    color: #ffeadd !important;
+  }
+
+  .chaos-stage-3 button,
+  .chaos-stage-3 a,
+  .chaos-stage-3 .rounded-lg,
+  .chaos-stage-3 .rounded-xl {
+    transform: rotate(5deg) translate(-6px, -10px) scale(1.05);
+    box-shadow: 0 24px 52px rgba(255, 12, 0, 0.45);
+    background: linear-gradient(160deg, rgba(120, 0, 0, 0.95), rgba(220, 38, 38, 0.75));
+    color: #fff1ea !important;
+  }
+
+  .chaos-stage-3 .chaos-ember {
+    box-shadow: 0 0 24px rgba(255, 106, 0, 0.7);
+  }
+
+  @keyframes chaosShake {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate3d(-2px, 2px, 0) rotate(-0.3deg);
+    }
+    50% {
+      transform: translate3d(3px, -2px, 0) rotate(0.2deg);
+    }
+    75% {
+      transform: translate3d(-1px, -3px, 0) rotate(-0.15deg);
+    }
+    100% {
+      transform: translate3d(2px, 1px, 0) rotate(0.25deg);
+    }
+  }
+
+  @keyframes chaosLava {
+    0% {
+      background-position: 0% 0%, 0% 0%, 0% 0%;
+      box-shadow: inset 0 0 120px rgba(255, 90, 0, 0.24);
+    }
+    45% {
+      background-position: 6% 8%, 4% 3%, 0% 0%;
+      box-shadow: inset 0 0 160px rgba(255, 120, 0, 0.32);
+    }
+    60% {
+      background-position: 3% 5%, 6% 6%, 0% 0%;
+    }
+    100% {
+      background-position: 0% 0%, 0% 0%, 0% 0%;
+      box-shadow: inset 0 0 120px rgba(255, 90, 0, 0.24);
+    }
+  }
+
+  @keyframes chaosInferno {
+    0% {
+      background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+      box-shadow: inset 0 0 140px rgba(255, 20, 0, 0.34);
+    }
+    40% {
+      background-position: 8% 10%, 6% 4%, 2% 12%, 0% 0%;
+      box-shadow: inset 0 0 180px rgba(255, 40, 0, 0.38);
+    }
+    65% {
+      background-position: 4% 6%, 8% 12%, 4% 6%, 0% 0%;
+      box-shadow: inset 0 0 150px rgba(255, 12, 0, 0.42);
+    }
+    100% {
+      background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+      box-shadow: inset 0 0 140px rgba(255, 20, 0, 0.34);
+    }
+  }
+
+  @keyframes burnGlow {
+    0%, 100% {
+      opacity: 0.25;
+      filter: brightness(1);
+    }
+    40% {
+      opacity: 0.4;
+      filter: brightness(1.1);
+    }
+    60% {
+      opacity: 0.55;
+      filter: brightness(1.2);
+    }
+  }
+
+  @keyframes crackReveal {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0.45;
+    }
+  }
+
+  @keyframes emberDrift {
+    0% {
+      transform: translate3d(0, 0, 0) scale(0.6);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.7;
+    }
+    100% {
+      transform: translate3d(-12px, -95vh, 0) scale(1.05);
+      opacity: 0;
+    }
+  }
 }
 
 html {
@@ -163,4 +451,18 @@ input[type="checkbox"]:checked {
 
 .observe {
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chaos-mode {
+    animation: none;
+  }
+
+  .chaos-overlay {
+    animation: none;
+  }
+
+  .chaos-ember {
+    animation: none;
+  }
 }
