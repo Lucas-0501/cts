@@ -565,7 +565,7 @@ function Home() {
               No tocar
             </button>
             <div className="text-[11px] text-graphite-400 italic">
-              La música secreta se activa automáticamente: War_meme.mp3
+              No toques, al menos que quieras descubrir lo que le pasaria al mundo si no cambiamos nada.
             </div>
           </div>
         </div>
