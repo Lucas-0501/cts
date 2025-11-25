@@ -471,6 +471,14 @@ function Home() {
     }
   ];
 
+  const deviceItems = [
+    { icon: Smartphone, label: 'Celulares', detail: 'Texto editable sobre los residuos tecnologicos relacionados con celulares.' },
+    { icon: Laptop, label: 'Computadoras', detail: 'Texto editable sobre los residuos tecnologicos relacionados con computadoras.' },
+    { icon: Battery, label: 'Baterias', detail: 'Texto editable sobre los residuos tecnologicos relacionados con baterias.' },
+    { icon: Zap, label: 'Componentes', detail: 'Texto editable sobre los residuos tecnologicos relacionados con componentes.' }
+  ];
+
+
   const impactSlides = [
     {
       id: 'environmental',
@@ -651,15 +659,17 @@ function Home() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { icon: Smartphone, label: 'Celulares' },
-              { icon: Laptop, label: 'Computadoras' },
-              { icon: Battery, label: 'Baterías' },
-              { icon: Zap, label: 'Componentes' }
-            ].map((item, i) => (
-              <div key={i} className="bg-gradient-to-br from-graphite-50 to-graphite-100 p-6 rounded-lg border border-graphite-200 hover:border-emerald-400 hover:shadow-lg transition-all group">
-                <item.icon className="w-8 h-8 text-emerald-500 mb-3 group-hover:scale-110 transition-transform" />
+            {deviceItems.map((item, i) => (
+              <div key={i} className="relative group bg-gradient-to-br from-graphite-50 to-graphite-100 p-6 rounded-lg border border-graphite-200 hover:border-emerald-400 hover:shadow-lg transition-all">
+                <item.icon className="w-8 h-8 text-emerald-500 mb-3 transition-transform group-hover:scale-110" />
                 <p className="font-semibold text-graphite-800">{item.label}</p>
+                <div
+                  className="absolute left-2 right-2 top-full mt-2 overflow-hidden rounded-lg border border-white/10 bg-[rgba(20,20,20,0.35)] backdrop-blur-md text-emerald-50 text-sm leading-relaxed shadow-lg transition-all duration-300 ease-out opacity-0 -translate-y-2 max-h-0 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:max-h-48 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:max-h-48 group-focus-within:pointer-events-auto"
+                >
+                  <div className="px-4 py-3">
+                    {item.detail}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
