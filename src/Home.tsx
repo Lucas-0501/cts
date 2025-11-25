@@ -510,35 +510,35 @@ function Home() {
     {
       title: 'Economia Circular',
       primary: 'Diseno pensado en reutilizacion y larga vida util.',
-      secondary: 'PLACEHOLDER: reemplazar con detalles especificos de Economia Circular.'
+      secondary: 'La economía circular busca diseñar productos que puedan reutilizarse, repararse y reciclarse. Su meta es extender la vida útil de los dispositivos y reducir la generación de residuos electrónicos.'
     },
     {
       title: 'Tecnologia Verde',
       primary: 'Innovacion con menor impacto ambiental.',
-      secondary: 'PLACEHOLDER: reemplazar con acciones de tecnologia verde.'
+      secondary: 'La tecnología verde impulsa innovaciones que consumen menos energía, reducen emisiones y utilizan materiales sostenibles. Es clave para un desarrollo tecnológico responsable.'
     },
     {
       title: 'Proyectos Sociales',
       primary: 'Iniciativas que unen impacto ambiental y social.',
-      secondary: 'PLACEHOLDER: reemplazar con ejemplos de proyectos sociales.'
+      secondary: 'Programas que combinan inclusión social y sustentabilidad. Promueven la donación, el reacondicionamiento y la redistribución de dispositivos para reducir brechas digitales.'
     },
     {
       title: 'Reciclaje Responsable',
       primary: 'Procesos certificados y seguros para gestionar e-waste.',
-      secondary: 'PLACEHOLDER: reemplazar con procesos de reciclaje responsable.'
+      secondary: 'Procesos certificados que garantizan el tratamiento seguro del e-waste. Separan materiales, evitan contaminación y permiten recuperar componentes valiosos.'
     },
     {
       title: 'Educacion y Reparacion',
       primary: 'Programas de alfabetizacion y cultura de reparacion.',
-      secondary: 'PLACEHOLDER: reemplazar con iniciativas educativas y de reparacion.'
+      secondary: 'Iniciativas que enseñan a reparar, reutilizar y cuidar dispositivos. Buscan reducir el consumo innecesario y fomentar hábitos tecnológicos más sustentables.'
     }
   ];
 
   const innovations = [
-    { name: 'Fairphone', logo: '??', desc: 'Telefono etico y reparable', detail: 'PLACEHOLDER: ampliar sobre Fairphone y su enfoque modular/reparable.' },
-    { name: 'iFixit', logo: '??', desc: 'Guias de reparacion para todos', detail: 'PLACEHOLDER: ampliar sobre iFixit y derecho a reparar.' },
-    { name: 'Back Market', logo: '??', desc: 'Marketplace de electronica reciclada', detail: 'PLACEHOLDER: ampliar sobre Back Market y economia circular.' },
-    { name: 'Dell Circular', logo: '??', desc: 'Diseno circular desde cero', detail: 'PLACEHOLDER: ampliar sobre Dell y materiales reciclados.' }
+    { name: 'Fairphone', logo: '📱', desc: 'Telefono etico y reparable', detail: 'PLACEHOLDER: ampliar sobre Fairphone y su enfoque modular/reparable.' },
+    { name: 'iFixit', logo: '🔧', desc: 'Guias de reparacion para todos', detail: 'PLACEHOLDER: ampliar sobre iFixit y derecho a reparar.' },
+    { name: 'Back Market', logo: '♻', desc: 'Marketplace de electronica reciclada', detail: 'PLACEHOLDER: ampliar sobre Back Market y economia circular.' },
+    { name: 'Dell Circular', logo: '⛑', desc: 'Diseno circular desde cero', detail: 'PLACEHOLDER: ampliar sobre Dell y materiales reciclados.' }
   ];
 
   const videoHighlights = [
@@ -917,7 +917,7 @@ function Home() {
                       }`}
                       aria-hidden={activeSolution !== i}
                     >
-                      PLACEHOLDER: {item.secondary}
+                      {item.secondary}
                     </p>
                   </div>
                 </div>
