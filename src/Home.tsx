@@ -485,24 +485,27 @@ function Home() {
   const impactSlides = [
     {
       id: 'environmental',
-      title: 'Contaminación Ambiental',
+      title: 'Contaminacion Ambiental',
       icon: '🌍',
-      stats: ['Aunque los desechos electrónicos solo representan el 2% de la basura sólida mundial, también pueden significar hasta el 70% de los residuos peligrosos que acaban en vertederos.', 'Contamina agua subterránea', 'Afecta ecosistemas durante décadas'],
-      color: 'from-red-500 to-orange-500'
+      stats: ['Aunque los desechos electronicos solo representan el 2% de la basura solida mundial, tambien pueden significar hasta el 70% de los residuos peligrosos que acaban en vertederos.', 'Contamina agua subterranea', 'Afecta ecosistemas durante decadas'],
+      color: 'from-red-500 to-orange-500',
+      detail: 'Esta pequeña fracción de la basura global es engañosamente peligrosa. Componentes como plomo, mercurio y cadmio se filtran desde los vertederos, envenenando la tierra y las aguas subterráneas. La contaminación resultante puede persistir en el medio ambiente durante décadas, alterando cadenas alimentarias y afectando a la biodiversidad de manera irreversible, lo que convierte a los desechos electrónicos en un problema ambiental de larga duración y gran impacto.'
     },
     {
       id: 'health',
       title: 'Riesgos para la Salud',
-      icon: '⚕️',
-      stats: ['Cáncer y daño neurológico', 'Millones de recicladores informales afectados', 'Exposición a sustancias tóxicas'],
-      color: 'from-yellow-500 to-red-500'
+      icon: '🩺',
+      stats: ['Cancer y dano neurologico', 'Millones de recicladores informales afectados', 'Exposicion a sustancias toxicas'],
+      color: 'from-yellow-500 to-red-500',
+      detail: 'Trabajar sin protección para extraer metales valiosos de dispositivos electrónicos expone a las personas a un cóctel de sustancias químicas peligrosas. Estas toxinas pueden causar desde problemas respiratorios y de piel hasta enfermedades crónicas como cáncer, daños en el sistema nervioso y problemas de desarrollo en niños. Los recicladores informales, a menudo en condiciones precarias, son los más vulnerables, sufriendo las consecuencias más directas y graves de esta crisis sanitaria.'
     },
     {
       id: 'social',
       title: 'Brecha Digital y Desigualdad',
-      icon: '💬',
-      stats: ['Obsolescencia programada amplía desigualdad', 'Países pobres reciben e-waste de ricos', 'Comunidades excluidas del acceso'],
-      color: 'from-blue-500 to-purple-500'
+      icon: '⚖️',
+      stats: ['Obsolescencia programada amplia desigualdad', 'Paises pobres reciben e-waste de ricos', 'Comunidades excluidas del acceso'],
+      color: 'from-blue-500 to-purple-500',
+      detail: 'Mientras los países más desarrollados se benefician de la última tecnología, la basura electrónica que generan a menudo se exporta a naciones en desarrollo. Estas comunidades no solo se convierten en verteder.'
     }
   ];
 
@@ -734,9 +737,9 @@ function Home() {
                 <div className="bg-graphite-900 p-8 rounded-lg h-full">
                   <div className="text-4xl mb-4">{slide.icon}</div>
                   <h3 className="font-poppins text-xl font-bold text-white mb-4">{slide.title}</h3>
-                  <div className="relative min-h-[140px]">
+                  <div className="relative min-h-[160px] overflow-hidden">
                     <ul
-                      className={`space-y-2 transition duration-240 ease-out ${
+                      className={`space-y-2 pr-1 transition duration-240 ease-out ${
                         activeImpact === index ? 'opacity-0 translate-y-1' : 'opacity-100 translate-y-0'
                       }`}
                       aria-hidden={activeImpact === index}
@@ -754,8 +757,8 @@ function Home() {
                       }`}
                       aria-hidden={activeImpact !== index}
                     >
-                      <p className="text-graphite-200 leading-relaxed">
-                        PLACEHOLDER: ampliar detalle sobre {slide.title.toLowerCase()} y acciones concretas que el visitante puede explorar.
+                      <p className="h-full overflow-y-auto pr-1 text-graphite-200 text-sm leading-relaxed">
+                        {slide.detail}
                       </p>
                     </div>
                   </div>
