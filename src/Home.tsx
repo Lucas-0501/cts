@@ -313,6 +313,7 @@ function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('');
   const [activeTab, setActiveTab] = useState(0);
+  const [activeSolution, setActiveSolution] = useState<number | null>(null);
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
   const [isChaosActive, setIsChaosActive] = useState(false);
   const [chaosStage, setChaosStage] = useState(0);
@@ -500,6 +501,34 @@ function Home() {
       icon: '💬',
       stats: ['Obsolescencia programada amplía desigualdad', 'Países pobres reciben e-waste de ricos', 'Comunidades excluidas del acceso'],
       color: 'from-blue-500 to-purple-500'
+    }
+  ];
+
+  const sustainableSolutions = [
+    {
+      title: 'Economia Circular',
+      primary: 'Diseno pensado en reutilizacion y larga vida util.',
+      secondary: 'PLACEHOLDER: reemplazar con detalles especificos de Economia Circular.'
+    },
+    {
+      title: 'Tecnologia Verde',
+      primary: 'Innovacion con menor impacto ambiental.',
+      secondary: 'PLACEHOLDER: reemplazar con acciones de tecnologia verde.'
+    },
+    {
+      title: 'Proyectos Sociales',
+      primary: 'Iniciativas que unen impacto ambiental y social.',
+      secondary: 'PLACEHOLDER: reemplazar con ejemplos de proyectos sociales.'
+    },
+    {
+      title: 'Reciclaje Responsable',
+      primary: 'Procesos certificados y seguros para gestionar e-waste.',
+      secondary: 'PLACEHOLDER: reemplazar con procesos de reciclaje responsable.'
+    },
+    {
+      title: 'Educacion y Reparacion',
+      primary: 'Programas de alfabetizacion y cultura de reparacion.',
+      secondary: 'PLACEHOLDER: reemplazar con iniciativas educativas y de reparacion.'
     }
   ];
 
@@ -823,18 +852,45 @@ function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {[
-              { icon: RefreshCw, title: 'Economía Circular', desc: 'Diseño pensado en reutilización', color: 'from-emerald-400 to-emerald-600' },
-              { icon: Shield, title: 'Tecnología Verde', desc: 'Innovación con impacto mínimo', color: 'from-blue-400 to-blue-600' },
-              { icon: Heart, title: 'Proyectos Sociales', desc: 'Impacto ambiental + social', color: 'from-yellow-400 to-yellow-600' },
-              { icon: Users, title: 'Reciclaje Responsable', desc: 'Procesos certificados y seguros', color: 'from-purple-400 to-purple-600' }
-            ].map((item, i) => (
-              <div key={i} className="group">
-                <div className={`bg-gradient-to-br ${item.color} p-1 rounded-xl transition-transform group-hover:scale-105`}>
-                  <div className="bg-white p-8 rounded-lg">
-                    <item.icon className="w-8 h-8 text-emerald-600 mb-4" />
-                    <h3 className="font-bold text-graphite-900 mb-2 text-lg">{item.title}</h3>
-                    <p className="text-graphite-700">{item.desc}</p>
+            {sustainableSolutions.map((item, i) => (
+              <div
+                key={item.title}
+                className="group bg-[rgba(20,20,20,0.35)] border border-white/10 rounded-xl p-[6px] transition-transform duration-200 ease-out"
+              >
+                <div
+                  className="relative overflow-hidden rounded-lg bg-white/5 border border-white/10 p-8 min-h-[180px] flex flex-col justify-start"
+                  onMouseEnter={() => setActiveSolution(i)}
+                  onMouseLeave={() => setActiveSolution(null)}
+                  onFocus={() => setActiveSolution(i)}
+                  onBlur={() => setActiveSolution(null)}
+                  onClick={() => setActiveSolution((prev) => (prev === i ? null : i))}
+                  tabIndex={0}
+                  role="button"
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500/70 to-blue-500/60 flex items-center justify-center text-white shadow-inner">
+                      <span className="text-lg font-bold">{item.title.charAt(0)}</span>
+                    </div>
+                    <h3 className="font-bold text-graphite-100 text-lg">{item.title}</h3>
+                  </div>
+
+                  <div className="relative flex-1">
+                    <p
+                      className={`absolute inset-0 px-2 text-graphite-100 leading-relaxed transition duration-240 ease-out ${
+                        activeSolution === i ? 'opacity-0 translate-y-1' : 'opacity-100 translate-y-0'
+                      }`}
+                      aria-hidden={activeSolution === i}
+                    >
+                      {item.primary}
+                    </p>
+                    <p
+                      className={`absolute inset-0 px-2 text-emerald-100 leading-relaxed transition duration-240 ease-out ${
+                        activeSolution === i ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1'
+                      }`}
+                      aria-hidden={activeSolution !== i}
+                    >
+                      PLACEHOLDER: {item.secondary}
+                    </p>
                   </div>
                 </div>
               </div>
