@@ -313,7 +313,9 @@ function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('');
   const [activeTab, setActiveTab] = useState(0);
+  const [activeImpact, setActiveImpact] = useState<number | null>(null);
   const [activeSolution, setActiveSolution] = useState<number | null>(null);
+  const [activeInnovation, setActiveInnovation] = useState<number | null>(null);
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
   const [isChaosActive, setIsChaosActive] = useState(false);
   const [chaosStage, setChaosStage] = useState(0);
@@ -533,10 +535,10 @@ function Home() {
   ];
 
   const innovations = [
-    { name: 'Fairphone', logo: '📱', desc: 'Teléfono ético y reparable' },
-    { name: 'iFixit', logo: '🔧', desc: 'Guías de reparación para todos' },
-    { name: 'Back Market', logo: '♻️', desc: 'Marketplace de electrónica reciclada' },
-    { name: 'Dell Circular', logo: '🔄', desc: 'Diseño circular desde cero' }
+    { name: 'Fairphone', logo: '??', desc: 'Telefono etico y reparable', detail: 'PLACEHOLDER: ampliar sobre Fairphone y su enfoque modular/reparable.' },
+    { name: 'iFixit', logo: '??', desc: 'Guias de reparacion para todos', detail: 'PLACEHOLDER: ampliar sobre iFixit y derecho a reparar.' },
+    { name: 'Back Market', logo: '??', desc: 'Marketplace de electronica reciclada', detail: 'PLACEHOLDER: ampliar sobre Back Market y economia circular.' },
+    { name: 'Dell Circular', logo: '??', desc: 'Diseno circular desde cero', detail: 'PLACEHOLDER: ampliar sobre Dell y materiales reciclados.' }
   ];
 
   const videoHighlights = [
@@ -717,20 +719,46 @@ function Home() {
             {impactSlides.map((slide, index) => (
               <div
                 key={slide.id}
-                onMouseEnter={() => setActiveTab(index)}
+                onMouseEnter={() => {
+                  setActiveTab(index);
+                  setActiveImpact(index);
+                }}
+                onMouseLeave={() => setActiveImpact(null)}
+                onClick={() => setActiveImpact((prev) => (prev === index ? null : index))}
+                onFocus={() => setActiveImpact(index)}
+                onBlur={() => setActiveImpact(null)}
                 className={`bg-gradient-to-br ${slide.color} p-1 rounded-xl transition-transform hover:scale-105 cursor-pointer`}
+                tabIndex={0}
+                role="button"
               >
                 <div className="bg-graphite-900 p-8 rounded-lg h-full">
                   <div className="text-4xl mb-4">{slide.icon}</div>
                   <h3 className="font-poppins text-xl font-bold text-white mb-4">{slide.title}</h3>
-                  <ul className="space-y-2">
-                    {slide.stats.map((stat, i) => (
-                      <li key={i} className="flex gap-2 text-graphite-300">
-                        <span className="text-emerald-400">•</span>
-                        <span>{stat}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="relative min-h-[140px]">
+                    <ul
+                      className={`space-y-2 transition duration-240 ease-out ${
+                        activeImpact === index ? 'opacity-0 translate-y-1' : 'opacity-100 translate-y-0'
+                      }`}
+                      aria-hidden={activeImpact === index}
+                    >
+                      {slide.stats.map((stat, i) => (
+                        <li key={i} className="flex gap-2 text-graphite-300">
+                          <span className="text-emerald-400">?</span>
+                          <span>{stat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div
+                      className={`absolute inset-0 transition duration-240 ease-out ${
+                        activeImpact === index ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1'
+                      }`}
+                      aria-hidden={activeImpact !== index}
+                    >
+                      <p className="text-graphite-200 leading-relaxed">
+                        PLACEHOLDER: ampliar detalle sobre {slide.title.toLowerCase()} y acciones concretas que el visitante puede explorar.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -957,11 +985,35 @@ function Home() {
             {innovations.map((innovation, i) => (
               <div
                 key={i}
-                className="bg-graphite-800 border border-graphite-700 p-8 rounded-lg hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-500/50 transition-all text-center group"
+                className="bg-graphite-800 border border-graphite-700 p-8 rounded-lg hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-500/50 transition-all text-center group cursor-pointer"
+                onMouseEnter={() => setActiveInnovation(i)}
+                onMouseLeave={() => setActiveInnovation(null)}
+                onClick={() => setActiveInnovation((prev) => (prev === i ? null : i))}
+                onFocus={() => setActiveInnovation(i)}
+                onBlur={() => setActiveInnovation(null)}
+                tabIndex={0}
+                role="button"
               >
                 <div className="text-6xl mb-4 group-hover:scale-125 transition-transform">{innovation.logo}</div>
                 <h3 className="font-bold text-white mb-2">{innovation.name}</h3>
-                <p className="text-graphite-300 text-sm">{innovation.desc}</p>
+                <div className="relative min-h-[70px]">
+                  <p
+                    className={`text-graphite-300 text-sm leading-relaxed transition duration-240 ease-out ${
+                      activeInnovation === i ? 'opacity-0 translate-y-1' : 'opacity-100 translate-y-0'
+                    }`}
+                    aria-hidden={activeInnovation === i}
+                  >
+                    {innovation.desc}
+                  </p>
+                  <p
+                    className={`absolute inset-0 px-2 text-emerald-100 text-sm leading-relaxed transition duration-240 ease-out ${
+                      activeInnovation === i ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1'
+                    }`}
+                    aria-hidden={activeInnovation !== i}
+                  >
+                    {innovation.detail}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
