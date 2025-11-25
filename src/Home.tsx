@@ -510,7 +510,7 @@ function Home() {
     {
       title: 'Economia Circular',
       primary: 'Diseno pensado en reutilizacion y larga vida util.',
-      secondary: 'La economía circular busca diseñar productos que puedan reutilizarse, repararse y reciclarse. Su meta es extender la vida útil de los dispositivos y reducir la generación de residuos electrónicos.'
+      secondary: 'La economía circular busca diseñar productos que puedan reutilizarse, repararse y reciclarse.'
     },
     {
       title: 'Tecnologia Verde',
@@ -535,10 +535,10 @@ function Home() {
   ];
 
   const innovations = [
-    { name: 'Fairphone', logo: '📱', desc: 'Telefono etico y reparable', detail: 'PLACEHOLDER: ampliar sobre Fairphone y su enfoque modular/reparable.' },
-    { name: 'iFixit', logo: '🔧', desc: 'Guias de reparacion para todos', detail: 'PLACEHOLDER: ampliar sobre iFixit y derecho a reparar.' },
-    { name: 'Back Market', logo: '♻', desc: 'Marketplace de electronica reciclada', detail: 'PLACEHOLDER: ampliar sobre Back Market y economia circular.' },
-    { name: 'Dell Circular', logo: '⛑', desc: 'Diseno circular desde cero', detail: 'PLACEHOLDER: ampliar sobre Dell y materiales reciclados.' }
+    { name: 'Fairphone', logo: '📱', desc: 'Telefono etico y reparable', detail: 'Smartphones modulares y éticos diseñados para durar, repararse fácilmente y reducir el impacto ambiental.' },
+    { name: 'iFixit', logo: '🔧', desc: 'Guias de reparacion para todos', detail: 'Comunidad que ofrece guías de reparación y piezas para extender la vida útil de dispositivos electrónicos.' },
+    { name: 'Back Market', logo: '♻', desc: 'Marketplace de electronica reciclada', detail: 'Plataforma de venta de tecnología reacondicionada que promueve consumo responsable y reduce residuos electrónicos.' },
+    { name: 'Dell Circular', logo: '⛑', desc: 'Diseno circular desde cero', detail: 'Iniciativa de Dell que reutiliza materiales reciclados para fabricar computadoras más sostenibles y circulares.' }
   ];
 
   const videoHighlights = [
