@@ -475,10 +475,10 @@ function Home() {
   ];
 
   const deviceItems = [
-    { icon: Smartphone, label: 'Celulares', detail: 'Texto editable sobre los residuos tecnologicos relacionados con celulares.' },
-    { icon: Laptop, label: 'Computadoras', detail: 'Texto editable sobre los residuos tecnologicos relacionados con computadoras.' },
-    { icon: Battery, label: 'Baterias', detail: 'Texto editable sobre los residuos tecnologicos relacionados con baterias.' },
-    { icon: Zap, label: 'Componentes', detail: 'Texto editable sobre los residuos tecnologicos relacionados con componentes.' }
+    { icon: Smartphone, label: 'Celulares', detail: 'Dispositivos que contienen metales y plásticos; requieren reciclaje adecuado por sus componentes tóxicos y recuperables.' },
+    { icon: Laptop, label: 'Computadoras', detail: 'Equipos con placas, cables y carcasas que incluyen materiales valiosos y peligrosos si no se gestionan correctamente.' },
+    { icon: Battery, label: 'Baterias', detail: 'Almacenan energía y contienen sustancias químicas que contaminan suelo y agua si no se desechan apropiadamente.' },
+    { icon: Zap, label: 'Componentes', detail: 'Partes electrónicas reciclables que incluyen metales, plásticos y circuitos con potencial contaminante y valor recuperable.' }
   ];
 
 
