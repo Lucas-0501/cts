@@ -1,6 +1,6 @@
 import { useEffect, useState, type MouseEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
 
 export const NAV_SECTIONS = [
   { id: 'que-son-residuos', label: '¿Qué son los residuos tecnológicos?' },
@@ -27,6 +27,7 @@ const mobileLinkBase =
 
 function Navbar({ activeSection, onSectionClick }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
@@ -55,72 +56,95 @@ function Navbar({ activeSection, onSectionClick }: NavbarProps) {
   return (
     <nav aria-label="Navegación principal" className="sticky top-0 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="mt-3 flex items-center justify-between rounded-full border border-white/10 bg-[rgba(20,20,20,0.18)] px-4 py-3 backdrop-blur-[6px] shadow-[0_4px_10px_rgba(0,0,0,0.18)]">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-100">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_0_4px_rgba(16,185,129,0.15)] animate-pulse" aria-hidden="true" />
-            <span>Proyecto CTS</span>
-          </div>
-
-          <div className="hidden items-center gap-2 md:flex">
-            {NAV_SECTIONS.map((section) => (
-              <a
-                key={section.id}
-                href={isHome ? `#${section.id}` : `/#${section.id}`}
-                onClick={(event) => handleSectionClick(event, section.id)}
-                className={desktopLinkClass(activeSection === section.id)}
-                aria-current={activeSection === section.id ? 'page' : undefined}
-              >
-                {section.label}
-              </a>
-            ))}
-            <Link
-              to="/calculator"
-              className={desktopLinkClass(isCalculator)}
-              aria-current={isCalculator ? 'page' : undefined}
-            >
-              Línea de tiempo
-            </Link>
-          </div>
-
+        <div className="flex justify-end pt-2">
           <button
             type="button"
-            role="button"
-            aria-expanded={isOpen}
-            aria-label="Abrir menú"
-            onClick={() => setIsOpen((prev) => !prev)}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white transition-colors duration-200 hover:border-emerald-400 hover:text-emerald-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 md:hidden"
+            aria-expanded={!isCollapsed}
+            aria-controls="navbar-accordion"
+            onClick={() => {
+              setIsCollapsed((prev) => !prev);
+              setIsOpen(false);
+            }}
+            className="flex items-center gap-2 rounded-full bg-[rgba(20,20,20,0.6)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-100 border border-white/15 shadow-[0_4px_10px_rgba(0,0,0,0.18)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
           >
-            {isOpen ? <X size={22} /> : <Menu size={22} />}
+            <span>{isCollapsed ? 'Mostrar navegación' : 'Ocultar navegación'}</span>
+            {isCollapsed ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
           </button>
         </div>
 
-        {isOpen && (
-          <div className="md:hidden">
-            <div className="mt-2 overflow-hidden rounded-2xl border border-white/10 bg-[rgba(20,20,20,0.88)] backdrop-blur-[8px] shadow-2xl">
-              <div className="flex flex-col divide-y divide-white/5">
-                {NAV_SECTIONS.map((section) => (
-                  <a
-                    key={section.id}
-                    href={isHome ? `#${section.id}` : `/#${section.id}`}
-                    onClick={(event) => handleSectionClick(event, section.id)}
-                    className={mobileLinkClass(activeSection === section.id)}
-                    aria-current={activeSection === section.id ? 'page' : undefined}
-                  >
-                    {section.label}
-                  </a>
-                ))}
-                <Link
-                  to="/calculator"
-                  className={mobileLinkClass(isCalculator)}
-                  aria-current={isCalculator ? 'page' : undefined}
-                  onClick={() => setIsOpen(false)}
+        <div
+          id="navbar-accordion"
+          className={`mt-2 overflow-hidden transition-[max-height,opacity,transform] duration-300 ease-out ${
+            isCollapsed ? 'max-h-0 opacity-0 -translate-y-2 pointer-events-none' : 'max-h-[600px] opacity-100 translate-y-0'
+          }`}
+        >
+          <div className="mt-3 flex items-center justify-between rounded-full border border-white/10 bg-[rgba(20,20,20,0.18)] px-4 py-3 backdrop-blur-[6px] shadow-[0_4px_10px_rgba(0,0,0,0.18)]">
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-100">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_0_4px_rgba(16,185,129,0.15)] animate-pulse" aria-hidden="true" />
+              <span>Proyecto CTS</span>
+            </div>
+
+            <div className="hidden items-center gap-2 md:flex">
+              {NAV_SECTIONS.map((section) => (
+                <a
+                  key={section.id}
+                  href={isHome ? `#${section.id}` : `/#${section.id}`}
+                  onClick={(event) => handleSectionClick(event, section.id)}
+                  className={desktopLinkClass(activeSection === section.id)}
+                  aria-current={activeSection === section.id ? 'page' : undefined}
                 >
-                  Línea de tiempo
-                </Link>
+                  {section.label}
+                </a>
+              ))}
+              <Link
+                to="/calculator"
+                className={desktopLinkClass(isCalculator)}
+                aria-current={isCalculator ? 'page' : undefined}
+              >
+                Línea de tiempo
+              </Link>
+            </div>
+
+            <button
+              type="button"
+              role="button"
+              aria-expanded={isOpen}
+              aria-label="Abrir menú"
+              onClick={() => setIsOpen((prev) => !prev)}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white transition-colors duration-200 hover:border-emerald-400 hover:text-emerald-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 md:hidden"
+            >
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+
+          {isOpen && (
+            <div className="md:hidden">
+              <div className="mt-2 overflow-hidden rounded-2xl border border-white/10 bg-[rgba(20,20,20,0.88)] backdrop-blur-[8px] shadow-2xl">
+                <div className="flex flex-col divide-y divide-white/5">
+                  {NAV_SECTIONS.map((section) => (
+                    <a
+                      key={section.id}
+                      href={isHome ? `#${section.id}` : `/#${section.id}`}
+                      onClick={(event) => handleSectionClick(event, section.id)}
+                      className={mobileLinkClass(activeSection === section.id)}
+                      aria-current={activeSection === section.id ? 'page' : undefined}
+                    >
+                      {section.label}
+                    </a>
+                  ))}
+                  <Link
+                    to="/calculator"
+                    className={mobileLinkClass(isCalculator)}
+                    aria-current={isCalculator ? 'page' : undefined}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Línea de tiempo
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </nav>
   );
