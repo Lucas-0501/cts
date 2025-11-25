@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, TrendingUp } from 'lucide-react';
+import Navbar from './components/Navbar';
 
 interface YearData {
   year: number;
@@ -490,25 +491,31 @@ function Calculator() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-graphite-50 via-white to-graphite-100 font-inter">
-      {/* Header */}
-      <header className="bg-white border-b border-graphite-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <button
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-emerald-600 hover:text-emerald-700 transition-colors font-semibold"
-          >
-            <ArrowLeft size={20} />
-            Volver
-          </button>
-          <h1 className="font-poppins text-2xl md:text-3xl font-bold text-graphite-900">
-            Línea de Tiempo del E-Waste
-          </h1>
-          <div className="w-20" />
-        </div>
-      </header>
+      <Navbar />
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <button
+            onClick={() => navigate('/#hero')}
+            className="flex items-center gap-2 self-start rounded-full border border-emerald-100 px-4 py-2 text-emerald-700 transition-colors duration-200 hover:border-emerald-300 hover:text-emerald-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
+          >
+            <ArrowLeft size={18} />
+            Volver al Home
+          </button>
+          <div className="md:text-center">
+            <h1 className="font-poppins text-2xl md:text-3xl font-bold text-graphite-900">Línea de Tiempo del E-Waste</h1>
+            <p className="mt-2 text-sm text-graphite-500">Evolución del problema y las respuestas globales</p>
+          </div>
+          <div className="w-20" />
+        </div>
+        <div className="mb-10 h-1 w-full rounded-full bg-graphite-200/70">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-blue-500 transition-all duration-300"
+            style={{ width: `${progress}%` }}
+            aria-hidden="true"
+          />
+        </div>
         {/* Year Selector */}
         <div className="bg-white rounded-xl border border-graphite-200 p-8 mb-12 shadow-sm">
           <div className="flex items-center justify-between mb-8">

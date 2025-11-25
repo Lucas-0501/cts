@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowRight, ChevronDown, Smartphone, Laptop, Battery, Zap, Heart, Users, RefreshCw, Shield, BookOpen, ExternalLink, Play, TrendingUp } from 'lucide-react';
 import CountUp from './components/CountUp';
 import Carousel from './components/Carousel';
 import GlobalChart from './components/GlobalChart';
 import RecycleChain from './components/RecycleChain';
+import Navbar, { NAV_SECTIONS } from './components/Navbar';
 
 interface DemonTextController {
   stop: () => void;
@@ -308,7 +309,9 @@ const startDemonTextEffect = (initialStage: number): DemonTextController => {
 
 function Home() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState('');
   const [activeTab, setActiveTab] = useState(0);
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
   const [isChaosActive, setIsChaosActive] = useState(false);
@@ -401,9 +404,47 @@ function Home() {
     }
   }, [chaosStage, isChaosActive]);
 
-  const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const scrollToSection = useCallback((id: string) => {
+    const element = document.getElementById(id);
+    if (!element) return;
+
+    const offset = 96;
+    const y = element.getBoundingClientRect().top + window.scrollY - offset;
+
+    window.scrollTo({ top: y, behavior: 'smooth' });
+    setActiveSection(id);
+  }, []);
+
+  useEffect(() => {
+    if (location.hash) {
+      const targetId = location.hash.replace('#', '');
+      window.setTimeout(() => scrollToSection(targetId), 80);
+    }
+  }, [location.hash, scrollToSection]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visible[0]) {
+          setActiveSection(visible[0].target.id);
+        }
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: [0.15, 0.35, 0.6] }
+    );
+
+    NAV_SECTIONS.forEach((section) => {
+      const element = document.getElementById(section.id);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const toggleChaos = () => {
     setIsChaosActive((prev) => !prev);
@@ -507,9 +548,11 @@ function Home() {
       )}
       {/* Progress Bar */}
       <div
-        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-emerald-500 to-blue-500 z-50 transition-all duration-300"
+        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-emerald-500 to-blue-500 z-40 transition-all duration-300"
         style={{ width: `${scrollProgress}%` }}
       />
+
+      <Navbar activeSection={activeSection} onSectionClick={scrollToSection} />
 
       {/* Scroll to Top Button */}
       {scrollProgress > 20 && (
@@ -560,7 +603,7 @@ function Home() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center fade-in" style={{ animationDelay: '0.6s' }}>
             <button
-              onClick={() => scrollToSection('definition')}
+              onClick={() => scrollToSection('que-son-residuos')}
               className="group px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-poppins font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg hover:shadow-emerald-500/50"
             >
               Explorar
@@ -584,7 +627,7 @@ function Home() {
       </section>
 
       {/* ========== DEFINITION SECTION ========== */}
-      <section id="definition" className="py-24 px-6 bg-white">
+      <section id="que-son-residuos" className="py-24 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-poppins text-5xl font-bold text-graphite-900 mb-4">¿Qué son los residuos tecnológicos?</h2>
@@ -624,7 +667,7 @@ function Home() {
       </section>
 
       {/* ========== IMPACT SECTION ========== */}
-      <section id="impact" className="py-24 px-6 bg-graphite-900">
+      <section id="impacto-ambiental" className="py-24 px-6 bg-graphite-900">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-poppins text-5xl font-bold text-white mb-4">Impacto Ambiental y Social</h2>
@@ -657,7 +700,7 @@ function Home() {
       </section>
 
       {/* ========== GLOBAL PANORAMA SECTION ========== */}
-      <section id="global" className="py-24 px-6 bg-white">
+      <section id="panorama-global" className="py-24 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-poppins text-5xl font-bold text-graphite-900 mb-4">Panorama Global del E-Waste</h2>
@@ -670,7 +713,7 @@ function Home() {
 
       {/* ========== SPACE WASTE SECTION ========== */}
       <section
-        id="space-waste"
+        id="residuos-espaciales"
         className="space-waste-section relative overflow-hidden py-24 px-6 text-white"
       >
         <div className="space-waste-parallax" aria-hidden="true" />
@@ -707,7 +750,7 @@ function Home() {
       </section>
 
       {/* ========== RECYCLE CHAIN SECTION ========== */}
-      <section id="chain" className="py-24 px-6 bg-graphite-50">
+      <section id="cadena-e-waste" className="py-24 px-6 bg-graphite-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-poppins text-5xl font-bold text-graphite-900 mb-4">La Cadena del E-Waste</h2>
@@ -720,7 +763,7 @@ function Home() {
       </section>
 
       {/* ========== VIDEO SECTION ========== */}
-      <section id="video" className="py-24 px-6 bg-white">
+      <section id="realidad-e-waste" className="py-24 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-poppins text-5xl font-bold text-graphite-900 mb-4">Mira la Realidad del E-Waste</h2>
@@ -762,7 +805,7 @@ function Home() {
       </section>
 
       {/* ========== SOLUTIONS SECTION ========== */}
-      <section id="solutions" className="py-24 px-6 bg-graphite-50">
+      <section id="soluciones-sustentables" className="py-24 px-6 bg-graphite-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-poppins text-5xl font-bold text-graphite-900 mb-4">Soluciones Sustentables</h2>
@@ -791,7 +834,7 @@ function Home() {
       </section>
 
       {/* ========== ARGENTINA SECTION ========== */}
-      <section id="argentina" className="py-24 px-6 bg-white">
+      <section id="argentina-latam" className="py-24 px-6 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-poppins text-5xl font-bold text-graphite-900 mb-4">Argentina y América Latina</h2>
@@ -837,7 +880,7 @@ function Home() {
       </section>
 
       {/* ========== INNOVATION SECTION ========== */}
-      <section id="innovation" className="py-24 px-6 bg-graphite-900">
+      <section id="innovacion-futuro" className="py-24 px-6 bg-graphite-900">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-poppins text-5xl font-bold text-white mb-4">Innovación y Futuro</h2>
@@ -900,7 +943,7 @@ function Home() {
               <ul className="space-y-2 text-graphite-400 text-sm">
                 <li><button onClick={() => scrollToSection('hero')} className="hover:text-emerald-400">Inicio</button></li>
                 <li><button onClick={() => navigate('/calculator')} className="hover:text-emerald-400">Línea de Tiempo</button></li>
-                <li><button onClick={() => scrollToSection('innovation')} className="hover:text-emerald-400">Innovación</button></li>
+                <li><button onClick={() => scrollToSection('innovacion-futuro')} className="hover:text-emerald-400">Innovación</button></li>
               </ul>
             </div>
             <div>
