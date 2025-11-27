@@ -696,10 +696,17 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #202020;
 }
 
 body {
   overflow-x: hidden;
+  background-color: #202020;
+  overscroll-behavior-y: none;
+}
+
+#root {
+  background-color: #202020;
 }
 
 input[type="checkbox"]:checked {

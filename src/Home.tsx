@@ -999,9 +999,9 @@ function Home() {
               >
                 <div className="text-6xl mb-4 group-hover:scale-125 transition-transform">{innovation.logo}</div>
                 <h3 className="font-bold text-white mb-2">{innovation.name}</h3>
-                <div className="relative min-h-[70px]">
+                <div className="relative min-h-[150px] overflow-hidden">
                   <p
-                    className={`text-graphite-300 text-sm leading-relaxed transition duration-240 ease-out ${
+                    className={`absolute inset-0 px-2 text-graphite-300 text-sm leading-relaxed transition duration-240 ease-out ${
                       activeInnovation === i ? 'opacity-0 translate-y-1' : 'opacity-100 translate-y-0'
                     }`}
                     aria-hidden={activeInnovation === i}
@@ -1068,7 +1068,14 @@ function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-emerald-400 mb-3">Fuentes</h4>
+              <button
+                type="button"
+                onClick={() => navigate('/fuentes')}
+                className="group mb-3 inline-flex items-center gap-2 font-bold text-emerald-400 hover:text-emerald-300"
+              >
+                Fuentes
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              </button>
               <ul className="space-y-2 text-graphite-400 text-sm">
                 <li>
                   <a
