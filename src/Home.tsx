@@ -317,6 +317,7 @@ function Home() {
   const [activeSolution, setActiveSolution] = useState<number | null>(null);
   const [activeInnovation, setActiveInnovation] = useState<number | null>(null);
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
+  const [showSpaceShort, setShowSpaceShort] = useState(false);
   const [isChaosActive, setIsChaosActive] = useState(false);
   const [chaosStage, setChaosStage] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -787,34 +788,70 @@ function Home() {
         className="space-waste-section relative overflow-hidden py-24 px-6 text-white"
       >
         <div className="space-waste-parallax" aria-hidden="true" />
-        <div className="max-w-4xl mx-auto relative z-10">
-          <div className="space-y-6 text-white">
-            <h2 className="font-poppins text-5xl font-bold mb-4">Residuos Tecnológicos Espaciales</h2>
-            <p className="text-lg text-emerald-200/95 leading-relaxed">
-              Además del e-waste que toca el suelo, la órbita está cargada con restos de satélites, etapas de cohetes y fragmentos
-              que viajan a más de <span className="font-semibold text-emerald-300">28&nbsp;000&nbsp;km/h</span>. Cada pieza es una amenaza
-              para las misiones futuras y para la infraestructura espacial que sostiene servicios esenciales en la Tierra.
-            </p>
-            <div className="bg-gradient-to-tr from-emerald-500/25 via-blue-500/10 to-transparent border border-emerald-400/45 rounded-xl p-6 space-y-4">
-              <p className="font-poppins text-3xl font-semibold text-white">
-                <span className="text-emerald-300">27&nbsp;000+</span> objetos rastreados
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+            <div className="space-y-6 text-white">
+              <h2 className="font-poppins text-5xl font-bold mb-4">Residuos Tecnologicos Espaciales</h2>
+              <p className="text-lg text-emerald-200/95 leading-relaxed">
+                Ademas del e-waste que toca el suelo, la orbita esta cargada con restos de satelites, etapas de cohetes y fragmentos
+                que viajan a mas de <span className="font-semibold text-emerald-300">28&nbsp;000&nbsp;km/h</span>. Cada pieza es una amenaza
+                para las misiones futuras y para la infraestructura espacial que sostiene servicios esenciales en la Tierra.
               </p>
-              <p className="text-sm text-emerald-100 leading-relaxed">
-                Según la ESA, solo el <span className="font-semibold">11&nbsp;%</span> de los objetos en órbita continúa operativo.
-                El resto es desecho que puede detonar el <span className="font-semibold text-emerald-200">efecto Kessler</span>,
-                una cadena de colisiones que bloquearía corredores orbitales completos.
-              </p>
+              <div className="bg-gradient-to-tr from-emerald-500/25 via-blue-500/10 to-transparent border border-emerald-400/45 rounded-xl p-6 space-y-4">
+                <p className="font-poppins text-3xl font-semibold text-white">
+                  <span className="text-emerald-300">27&nbsp;000+</span> objetos rastreados
+                </p>
+                <p className="text-sm text-emerald-100 leading-relaxed">
+                  Segun la ESA, solo el <span className="font-semibold">11&nbsp;%</span> de los objetos en orbita continua operativo.
+                  El resto es desecho que puede detonar el <span className="font-semibold text-emerald-200">efecto Kessler</span>,
+                  una cadena de colisiones que bloquearia corredores orbitales completos.
+                </p>
+              </div>
+              <ul className="grid sm:grid-cols-2 gap-4 text-sm text-emerald-100">
+                <li className="bg-white/5 border border-emerald-400/30 rounded-lg p-4 leading-relaxed">
+                  <strong className="block text-emerald-300">Impacto terrestre</strong>
+                  Fragmentos reingresan a la atmosfera y pueden alcanzar zonas habitadas si no se desintegran por completo.
+                </li>
+                <li className="bg-white/5 border border-emerald-400/30 rounded-lg p-4 leading-relaxed">
+                  <strong className="block text-emerald-300">Diseno responsable</strong>
+                  Nuevos satelites incorporan sistemas de desorbitado y materiales que se queman con seguridad al finalizar su mision.
+                </li>
+              </ul>
             </div>
-            <ul className="grid sm:grid-cols-2 gap-4 text-sm text-emerald-100">
-              <li className="bg-white/5 border border-emerald-400/30 rounded-lg p-4 leading-relaxed">
-                <strong className="block text-emerald-300">Impacto terrestre</strong>
-                Fragmentos reingresan a la atmósfera y pueden alcanzar zonas habitadas si no se desintegran por completo.
-              </li>
-              <li className="bg-white/5 border border-emerald-400/30 rounded-lg p-4 leading-relaxed">
-                <strong className="block text-emerald-300">Diseño responsable</strong>
-                Nuevos satélites incorporan sistemas de desorbitado y materiales que se queman con seguridad al finalizar su misión.
-              </li>
-            </ul>
+
+            <div className="relative flex justify-center">
+              <div className="relative w-full max-w-xs rounded-2xl border border-emerald-400/30 bg-black/40 backdrop-blur-md shadow-[0_18px_36px_rgba(0,0,0,0.45)] overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-blue-500/10" aria-hidden />
+                <div className="relative w-full" style={{ paddingBottom: "177.78%" }}>
+                  {showSpaceShort ? (
+                    <video
+                      className="absolute inset-0 h-full w-full rounded-[18px] object-cover"
+                      src="/video/space-short.mp4"
+                      controls
+                      playsInline
+                      autoPlay
+                      muted
+                      loop
+                    />
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setShowSpaceShort(true)}
+                      className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-[18px] bg-cover bg-center text-white"
+                      style={{ backgroundImage: "url('https://i.ytimg.com/vi/yyCpJxrS9H0/maxresdefault.jpg')" }}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" aria-hidden />
+                      <span className="relative z-10 inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/40 transition-transform duration-200 hover:scale-105">
+                        <Play className="h-8 w-8 text-white" />
+                      </span>
+                      <span className="relative z-10 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100">
+                        Ver corto
+                      </span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

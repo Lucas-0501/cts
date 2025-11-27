@@ -54,9 +54,9 @@ function Navbar({ activeSection, onSectionClick }: NavbarProps) {
     `${mobileLinkBase} ${isActive ? 'text-white after:absolute after:left-4 after:right-4 after:-bottom-[3px] after:h-[3px] after:rounded-full after:bg-emerald-400' : ''}`;
 
   return (
-    <nav aria-label="Navegación principal" className="sticky top-0 z-50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex justify-end pt-2">
+    <nav aria-label="Navegación principal" className="sticky top-0 z-50 w-full border-b border-white/10 bg-[rgba(12,12,12,0.82)] backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-2">
+        <div className="flex justify-end">
           <button
             type="button"
             aria-expanded={!isCollapsed}
