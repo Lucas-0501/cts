@@ -875,7 +875,19 @@ function Home() {
       </section>
 
       {/* ========== SOLUTIONS SECTION ========== */}
-      <section id="soluciones-sustentables" className="py-24 px-6 bg-graphite-50">
+      <section
+        id="soluciones-sustentables"
+        className="relative overflow-hidden py-24 px-6 bg-gradient-to-b from-graphite-50 via-white to-graphite-100"
+      >
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-24 top-6 h-64 w-64 rounded-full bg-emerald-500/15 blur-3xl" aria-hidden />
+          <div className="absolute right-[-72px] top-1/3 h-72 w-72 rounded-full bg-blue-500/15 blur-3xl" aria-hidden />
+          <div className="absolute left-1/4 bottom-0 h-80 w-80 rounded-full bg-emerald-300/10 blur-3xl" aria-hidden />
+          <div
+            className="absolute inset-x-4 top-24 h-64 rounded-[38px] bg-gradient-to-r from-emerald-200/25 via-emerald-100/15 to-blue-200/20 blur-2xl opacity-80"
+            aria-hidden
+          />
+        </div>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-poppins text-5xl font-bold text-graphite-900 mb-4">Soluciones Sustentables</h2>
@@ -960,7 +972,7 @@ function Home() {
                 <h3 className="font-bold text-2xl text-graphite-900 mb-6">Iniciativas Regionales</h3>
                 <div className="space-y-4">
                   {[
-                    { org: 'CloEE', desc: 'Plataforma regional para impulsar el reciclaje responsable de electrónicos en Latinoamérica.' },
+                    { org: 'RECICLARG', desc: 'Empresa argentina especializada en la gestión y tratamiento responsable de residuos eléctricos y electrónicos.' },
                     { org: 'Fundación Equidad', desc: 'ONG argentina que reacondiciona computadoras y promueve acceso tecnológico sostenible.' },
                     { org: 'ECOTIC', desc: 'Red latinoamericana de recicladores y gestores certificados de residuos electrónicos.' }
                   ].map((item, i) => (
@@ -1056,7 +1068,7 @@ function Home() {
             <div>
               <h4 className="font-bold text-emerald-400 mb-3">Proyecto</h4>
               <p className="text-graphite-400 text-sm">
-                Iniciativa educativa sobre el impacto ambiental de la tecnología basada en principios de CTS
+                Trabajo sobre el impacto ambiental de la tecnología basada en principios de CTS
               </p>
             </div>
             <div>
