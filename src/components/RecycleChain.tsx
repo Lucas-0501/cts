@@ -13,32 +13,36 @@ const steps: ChainStep[] = [
     icon: <ShoppingCart className="w-8 h-8" />,
     title: 'Consumo',
     description: 'Compramos nuevos dispositivos constantemente, muchas veces sin necesidad real.',
-    detail: 'Compramos dispositivos nuevos sin necesidad real, impulsados por el marketing y la obsolescencia percibida, generando más demanda, producción y futuros residuos electrónicos.'
+    detail:
+      'Compramos dispositivos nuevos sin necesidad real, impulsados por el marketing y la obsolescencia percibida, generando más demanda, producción y futuros residuos electrónicos.',
   },
   {
     icon: <Trash2 className="w-8 h-8" />,
     title: 'Descarte',
-    description: 'Mas de 45 millones de toneladas de e-waste no se reciclan adecuadamente cada ano.',
-    detail: 'La mayoría de los dispositivos se tira incorrectamente, terminando en basurales donde liberan sustancias tóxicas y se pierde la oportunidad de reciclar materiales valiosos.'
+    description: 'Más de 45 millones de toneladas de e-waste no se reciclan adecuadamente cada año.',
+    detail:
+      'La mayoría de los dispositivos se tira incorrectamente, terminando en basurales donde liberan sustancias tóxicas y se pierde la oportunidad de reciclar materiales valiosos.',
   },
   {
     icon: <Truck className="w-8 h-8" />,
-    title: 'Recoleccion',
-    description: 'Segun ONU, solo el 17,4 % se recolecta formalmente para reciclaje.',
-    detail: 'Solo una pequeña parte del e-waste llega a sistemas formales de reciclaje, por falta de infraestructura y conciencia, dificultando recuperar materiales y reducir contaminación.'
+    title: 'Recolección',
+    description: 'Según ONU, solo el 17,4 % se recolecta formalmente para reciclaje.',
+    detail:
+      'Solo una pequeña parte del e-waste llega a sistemas formales de reciclaje, por falta de infraestructura y conciencia, dificultando recuperar materiales y reducir contaminación.',
   },
   {
     icon: <Globe className="w-8 h-8" />,
-    title: 'Exportacion',
-    description: 'Paises en desarrollo reciben el e-waste de naciones ricas.',
-    detail: 'Gran cantidad de e-waste se envía a países pobres, donde se maneja sin protección, afectando a trabajadores y contaminando comunidades vulnerables.'
+    title: 'Exportación',
+    description: 'Países en desarrollo reciben el e-waste de naciones ricas.',
+    detail:
+      'Gran cantidad de e-waste se envía a países pobres, donde se maneja sin protección, afectando a trabajadores y contaminando comunidades vulnerables.',
   },
   {
     icon: <Zap className="w-8 h-8" />,
-    title: 'Contaminacion',
+    title: 'Contaminación',
     description: 'Metales pesados contaminan agua, suelo y afectan comunidades.',
-    detail: 'El manejo informal libera metales peligrosos que contaminan aire, agua y suelo, generando graves riesgos para la salud humana y el ambiente.'
-  }
+    detail: 'El manejo informal libera metales peligrosos que contaminan aire, agua y suelo, generando graves riesgos para la salud humana y el ambiente.',
+  },
 ];
 
 function RecycleChain() {

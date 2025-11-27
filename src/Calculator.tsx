@@ -94,7 +94,7 @@ const historicalData: YearData[] = [
     highlights: [
       '20.5 Mt de residuos (~290 M dispositivos)',
       'Base 0 % frente a 2000',
-      'Basura electronica sin regulaciones ni estadisticas',
+      'Basura electrónica sin regulaciones ni estadisticas',
       'Fuente: Global E-waste Monitor 2020'
     ]
   },
@@ -145,12 +145,12 @@ const historicalData: YearData[] = [
     waste: 24.9,
     devicesApprox: '~356 M',
     description: 'Explosion de gadgets',
-    context: 'Las redes Wi-Fi y los reproductores portatiles se masifican. La directiva WEEE entra en vigor para regular los residuos electronicos en Europa.',
+    context: 'Las redes Wi-Fi y los reproductores portatiles se masifican. La directiva WEEE entra en vigor para regular los residuos electrónicos en Europa.',
     image: 'https://neubox.com/blog/wp-content/uploads/2024/02/860x436-NOSTALGIA-2.webp',
     highlights: [
       '24.9 Mt de residuos (~356 M dispositivos)',
       '+21 % respecto a 2000',
-      'Directiva WEEE regula residuos electronicos',
+      'Directiva WEEE regula residuos electrónicos',
       'Fuente: European Commission - Directive 2002/96/EC'
     ]
   },
@@ -158,7 +158,7 @@ const historicalData: YearData[] = [
     year: 2005,
     waste: 26.1,
     devicesApprox: '~373 M',
-    description: 'Boom tecnologico',
+    description: 'Boom tecnológico',
     context: 'Las ventas de camaras y reproductores MP3 alcanzan records. Empresas reemplazan hardware analogico sin sistemas de reciclaje adecuados.',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ08_9siR1eUwobj_60fHp3CDKS2cFaH9m1A&s',
     highlights: [
@@ -187,7 +187,7 @@ const historicalData: YearData[] = [
     waste: 28.5,
     devicesApprox: '~408 M',
     description: 'Nacimiento del smartphone',
-    context: 'El lanzamiento del iPhone marca el nacimiento del smartphone moderno. Los ciclos de vida se acortan y la chatarra electronica se multiplica.',
+    context: 'El lanzamiento del iPhone marca el nacimiento del smartphone moderno. Los ciclos de vida se acortan y la chatarra electrónica se multiplica.',
     image: 'https://www.greenpeace.org/static/planet4-argentina-stateless/2019/03/24ce7b84-smart_cuerpo.jpg',
     highlights: [
       '28.5 Mt de residuos (~408 M dispositivos)',
@@ -298,13 +298,13 @@ const historicalData: YearData[] = [
     year: 2015,
     waste: 46.0,
     devicesApprox: '~659 M',
-    description: 'Pico de ventas electronicas',
+    description: 'Pico de ventas electrónicas',
     context: 'Los dispositivos portatiles dominan el mercado y se instala el debate sobre economia circular aplicada a la tecnologia.',
     image: 'https://www.verifiedmarketreports.com/images/blogs/11-23/Top%207%20Trends%20In%20E-commerce%20of%20Consumer%20Electronics%20Products.png',
     highlights: [
       '46.0 Mt de residuos (~659 M dispositivos)',
       '+124 % respecto a 2000',
-      'Economia circular entra al debate tecnologico',
+      'Economia circular entra al debate tecnológico',
       'Fuente: Ellen MacArthur Foundation - Circular Economy 2015'
     ]
   },
@@ -425,7 +425,7 @@ const historicalData: YearData[] = [
     waste: 66.2,
     devicesApprox: '~956 M',
     description: 'El momento de actuar',
-    context: 'La Union Europea implementa leyes de reparabilidad y reciclaje obligatorio, impulsando diseno modular y reuso corporativo.',
+    context: 'La Union Europea implementa leyes de reparabilidad y reciclaje obligatorio, impulsando Diseño modular y reuso corporativo.',
     image: 'https://compucycle.com/wp-content/uploads/2021/12/categories-of-e-waste-recycling.jpg',
     highlights: [
       '66.2 Mt de residuos (~956 M dispositivos)',

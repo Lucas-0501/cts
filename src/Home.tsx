@@ -486,9 +486,9 @@ function Home() {
   const impactSlides = [
     {
       id: 'environmental',
-      title: 'Contaminacion Ambiental',
+      title: 'Contaminación Ambiental',
       icon: '🌍',
-      stats: ['Aunque los desechos electronicos solo representan el 2% de la basura solida mundial, tambien pueden significar hasta el 70% de los residuos peligrosos que acaban en vertederos.', 'Contamina agua subterranea', 'Afecta ecosistemas durante decadas'],
+      stats: ['Aunque los desechos electrónicos solo representan el 2% de la basura solida mundial, también pueden significar hasta el 70% de los residuos peligrosos que acaban en vertederos.', 'Contamina agua subterránea', 'Afecta ecosistemas durante decadas'],
       color: 'from-red-500 to-orange-500',
       detail: 'Esta pequeña fracción de la basura global es engañosamente peligrosa. Componentes como plomo, mercurio y cadmio se filtran desde los vertederos, envenenando la tierra y las aguas subterráneas. La contaminación resultante puede persistir en el medio ambiente durante décadas, alterando cadenas alimentarias y afectando a la biodiversidad de manera irreversible, lo que convierte a los desechos electrónicos en un problema ambiental de larga duración y gran impacto.'
     },
@@ -496,7 +496,7 @@ function Home() {
       id: 'health',
       title: 'Riesgos para la Salud',
       icon: '🩺',
-      stats: ['Cancer y dano neurologico', 'Millones de recicladores informales afectados', 'Exposicion a sustancias toxicas'],
+      stats: ['Cancer y daño neurológico', 'Millones de recicladores informales afectados', 'Exposicion a sustancias toxicas'],
       color: 'from-yellow-500 to-red-500',
       detail: 'Trabajar sin protección para extraer metales valiosos de dispositivos electrónicos expone a las personas a un cóctel de sustancias químicas peligrosas. Estas toxinas pueden causar desde problemas respiratorios y de piel hasta enfermedades crónicas como cáncer, daños en el sistema nervioso y problemas de desarrollo en niños. Los recicladores informales, a menudo en condiciones precarias, son los más vulnerables, sufriendo las consecuencias más directas y graves de esta crisis sanitaria.'
     },
@@ -506,19 +506,19 @@ function Home() {
       icon: '⚖️',
       stats: ['Obsolescencia programada amplia desigualdad', 'Paises pobres reciben e-waste de ricos', 'Comunidades excluidas del acceso'],
       color: 'from-blue-500 to-purple-500',
-      detail: 'Mientras los países más desarrollados se benefician de la última tecnología, la basura electrónica que generan a menudo se exporta a naciones en desarrollo. Estas comunidades no solo se convierten en verteder.'
+      detail: 'Mientras los países más desarrollados se benefician de la última tecnología, la basura electrónica que generan a menudo se exporta a naciones en desarrollo. Estas comunidades no solo se convierten en vertederos.'
     }
   ];
 
   const sustainableSolutions = [
     {
       title: 'Economia Circular',
-      primary: 'Diseno pensado en reutilizacion y larga vida util.',
+      primary: 'Diseño pensado en reutilización y larga vida util.',
       secondary: 'La economía circular busca diseñar productos que puedan reutilizarse, repararse y reciclarse.'
     },
     {
       title: 'Tecnologia Verde',
-      primary: 'Innovacion con menor impacto ambiental.',
+      primary: 'Innovación con menor impacto ambiental.',
       secondary: 'La tecnología verde impulsa innovaciones que consumen menos energía, reducen emisiones y utilizan materiales sostenibles. Es clave para un desarrollo tecnológico responsable.'
     },
     {
@@ -540,9 +540,9 @@ function Home() {
 
   const innovations = [
     { name: 'Fairphone', logo: '📱', desc: 'Telefono etico y reparable', detail: 'Smartphones modulares y éticos diseñados para durar, repararse fácilmente y reducir el impacto ambiental.' },
-    { name: 'iFixit', logo: '🔧', desc: 'Guias de reparacion para todos', detail: 'Comunidad que ofrece guías de reparación y piezas para extender la vida útil de dispositivos electrónicos.' },
-    { name: 'Back Market', logo: '♻', desc: 'Marketplace de electronica reciclada', detail: 'Plataforma de venta de tecnología reacondicionada que promueve consumo responsable y reduce residuos electrónicos.' },
-    { name: 'Dell Circular', logo: '⛑', desc: 'Diseno circular desde cero', detail: 'Iniciativa de Dell que reutiliza materiales reciclados para fabricar computadoras más sostenibles y circulares.' }
+    { name: 'iFixit', logo: '🔧', desc: 'Guías de reparacion para todos', detail: 'Comunidad que ofrece guías de reparación y piezas para extender la vida útil de dispositivos electrónicos.' },
+    { name: 'Back Market', logo: '♻', desc: 'Marketplace de electrónica reciclada', detail: 'Plataforma de venta de tecnología reacondicionada que promueve consumo responsable y reduce residuos electrónicos.' },
+    { name: 'Dell Circular', logo: '⛑', desc: 'Diseño circular desde cero', detail: 'Iniciativa de Dell que reutiliza materiales reciclados para fabricar computadoras más sostenibles y circulares.' }
   ];
 
   const videoHighlights = [
@@ -791,9 +791,9 @@ function Home() {
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
             <div className="space-y-6 text-white">
-              <h2 className="font-poppins text-4xl sm:text-5xl font-bold mb-4">Residuos Tecnologicos Espaciales</h2>
+              <h2 className="font-poppins text-4xl sm:text-5xl font-bold mb-4">Residuos Tecnológicos Espaciales</h2>
               <p className="text-base sm:text-lg text-emerald-200/95 leading-relaxed">
-                Ademas del e-waste que toca el suelo, la orbita esta cargada con restos de satelites, etapas de cohetes y fragmentos
+                Además del e-waste que toca el suelo, la orbita esta cargada con restos de satélites, etapas de cohetes y fragmentos
                 que viajan a mas de <span className="font-semibold text-emerald-300">28&nbsp;000&nbsp;km/h</span>. Cada pieza es una amenaza
                 para las misiones futuras y para la infraestructura espacial que sostiene servicios esenciales en la Tierra.
               </p>
@@ -802,19 +802,19 @@ function Home() {
                   <span className="text-emerald-300">27&nbsp;000+</span> objetos rastreados
                 </p>
                 <p className="text-sm sm:text-base text-emerald-100 leading-relaxed">
-                  Segun la ESA, solo el <span className="font-semibold">11&nbsp;%</span> de los objetos en orbita continua operativo.
+                  Según la ESA, solo el <span className="font-semibold">11&nbsp;%</span> de los objetos en órbita continúa operativo.
                   El resto es desecho que puede detonar el <span className="font-semibold text-emerald-200">efecto Kessler</span>,
-                  una cadena de colisiones que bloquearia corredores orbitales completos.
+                  una cadena de colisiones que bloquearía corredores orbitales completos.
                 </p>
               </div>
               <ul className="grid sm:grid-cols-2 gap-4 text-sm sm:text-base text-emerald-100">
                 <li className="bg-white/5 border border-emerald-400/30 rounded-lg p-4 leading-relaxed">
                   <strong className="block text-emerald-300">Impacto terrestre</strong>
-                  Fragmentos reingresan a la atmosfera y pueden alcanzar zonas habitadas si no se desintegran por completo.
+                  Fragmentos reingresan a la atmósfera y pueden alcanzar zonas habitadas si no se desintegran por completo.
                 </li>
                 <li className="bg-white/5 border border-emerald-400/30 rounded-lg p-4 leading-relaxed">
-                  <strong className="block text-emerald-300">Diseno responsable</strong>
-                  Nuevos satelites incorporan sistemas de desorbitado y materiales que se queman con seguridad al finalizar su mision.
+                  <strong className="block text-emerald-300">Diseño responsable</strong>
+                  Nuevos satélites incorporan sistemas de desorbitado y materiales que se queman con seguridad al finalizar su misión.
                 </li>
               </ul>
             </div>
@@ -1138,7 +1138,7 @@ function Home() {
                 </li>
                 <li>
                   <a
-                    href="https://www.greenpeace.org/argentina/el-peligro-de-los-residuos-electronicos"
+                    href="https://www.greenpeace.org/argentina/el-peligro-de-los-residuos-electrónicos"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-emerald-400 transition-colors"

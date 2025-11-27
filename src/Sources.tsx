@@ -202,7 +202,7 @@ Asegurate de que la transición sea suave y consistente en los cuatro apartados.
 const documentSources = [
   {
     title: 'Observatorio internacional sobre residuos electrónicos 2024 - UNITAR',
-    detail: 'Resumen ONU/UIT con cifras globales, tendencias y recomendaciones de politica para residuos electronicos.'
+    detail: 'Resumen ONU/UIT con cifras globales, tendencias y recomendaciones de politica para residuos electrónicos.'
   },
   {
     title: 'Análisis de los efectos ambientales generados por los residuos electrónicos 2010 - Gottau, Verónica',
@@ -217,19 +217,19 @@ const webSources = [
     detail: 'Panel interactivo con mapas, datos abiertos y metodologias usadas para los indicadores globales.'
   },
   {
-    name: 'Greenpeace - Riesgos de los residuos electronicos',
-    url: 'https://www.greenpeace.org/argentina/el-peligro-de-los-residuos-electronicos',
+    name: 'Greenpeace - Riesgos de los residuos electrónicos',
+    url: 'https://www.greenpeace.org/argentina/el-peligro-de-los-residuos-electrónicos',
     detail: 'Cobertura divulgativa sobre impacto ambiental, salud y consumo responsable.'
   },
   {
     name: 'IEEE Spectrum - Electronic Waste',
     url: 'https://spectrum.ieee.org/tag/electronic-waste',
-    detail: 'Articulos sobre innovacion, reciclaje y politicas tecnologicas en torno al e-waste.'
+    detail: 'Artículos sobre innovación, reciclaje y políticas tecnológicas en torno al e-waste.'
   },
   {
     name: 'Ministerio de Ambiente Argentina - RAEE',
     url: 'https://www.argentina.gob.ar/sites/default/files/manual_raee.pdf',
-    detail: 'Programas locales, puntos de gestion y estado de la normativa nacional.'
+    detail: 'Programas locales, puntos de gestión y estado de la normativa nacional.'
   }
 ] as const;
 
