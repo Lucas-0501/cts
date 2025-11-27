@@ -50,15 +50,17 @@ function RecycleChain() {
     <div className="relative">
       <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-500 via-yellow-500 to-red-600" />
 
-      <div className="space-y-12">
+      <div className="space-y-12 sm:space-y-14">
         {steps.map((step, index) => (
           <div
             key={step.title}
             onMouseEnter={() => setHoveredStep(index)}
             onMouseLeave={() => setHoveredStep(null)}
-            className={`relative transition-all duration-300 ${index % 2 === 0 ? 'ml-0 pl-0 pr-0 text-right' : 'ml-auto'}`}
+            className={`relative transition-all duration-300 sm:text-left ${
+              index % 2 === 0 ? 'md:ml-0 md:pl-0 md:pr-0 md:text-right' : 'md:ml-auto'
+            }`}
           >
-            <div className={`${index % 2 === 0 ? 'mr-auto w-5/12' : 'ml-auto w-5/12'}`}>
+            <div className={`${index % 2 === 0 ? 'mr-auto w-full md:w-5/12' : 'ml-auto w-full md:w-5/12'}`}>
               <div
                 className={`group bg-white rounded-lg p-6 border-2 transition-all duration-300 ${
                   isActive(index) ? 'border-emerald-500 shadow-lg shadow-emerald-500/50 scale-105' : 'border-graphite-200 hover:border-graphite-300'
